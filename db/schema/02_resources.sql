@@ -6,6 +6,6 @@ CREATE TABLE resources (
   resource_url VARCHAR(255) NOT NULL,
   photo_url VARCHAR(255) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  categery_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
