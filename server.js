@@ -48,6 +48,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+
 /////////////////////////////////////
 const users = {
   aJ48lW: {
@@ -82,6 +83,19 @@ const getUserByEmail = function(email, database) {
   }
   return null;
 };
+
+app.get('/myresources', (req, res)=>{
+  res.render('myresources');
+})
+
+app.get('/addresource', (req, res)=>{
+  res.render('addresource');
+})
+
+app.get('/userprofile', (req, res)=>{
+  res.render('userprofile');
+})
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
