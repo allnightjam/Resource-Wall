@@ -1,6 +1,8 @@
 // load .env data into process.env
 require('dotenv').config();
 
+const { getMaxIDFromResource } = require('./db/queries/users')
+
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
@@ -94,6 +96,14 @@ app.get('/myresources', (req, res)=>{
 
 app.get('/addresource', (req, res)=>{
   res.render('addresource');
+})
+
+app.post('/addresource', (req, res)=>{
+  getMaxIDFromResource().then(id=>{
+    const maxId = id;
+
+
+  })
 })
 
 app.get('/userprofile', (req, res)=>{
