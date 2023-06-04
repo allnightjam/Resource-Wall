@@ -1,17 +1,24 @@
+$resource-yellow: #ffd43b;
+$nav-left-title-color: #fff;
+$resource-blue: #339af0;
+$created-time-color: #7e7a7a;
+$resource-item-heart: #f03e3e;
+$resource-background-color: #d0ebff;
+
 body {
-   background: #d0ebff;
+   background: $resource-background-color;
 }
 
 .resource-nav{
   display: flex;
   justify-content: space-between;
-  background-color: #339af0;
+  background-color: $resource-blue;
   align-items: center;
 
   h1{
     margin: 20px 40px;
     font-family: Finger Paint;
-    color:#ffd43b;
+    color: $resource-yellow;
     font-size: 48px;
   }
 
@@ -19,7 +26,7 @@ body {
     display: flex;
     gap: 20px;
     padding: 0 40px;
-    color: #fff;
+    color: $resource-yellow;
     font-family: Geologica;
     font-weight: 600;
     font-size: 28px;
@@ -91,7 +98,7 @@ main{
   }
 
   & .resource-created{
-    color: #7e7a7a;
+    color: $created-time-color;
   }
 }
 
@@ -106,15 +113,15 @@ main{
     gap: 6px;
 
     .fa-heart{
-      color: #f03e3e;
+      color: $resource-item-heart;
     }
 
     .fa-comment{
-      color: #ffd43b;
+      color: $resource-yellow;
     }
 
     .fa-star{
-      color: #339af0;
+      color: $resource-blue;
     }
   }
 }
@@ -130,14 +137,14 @@ main{
     font-family: Geologica;
     font-weight: 600;
     font-size: 34px;
-    color: #339af0;
+    color: $resource-blue;
 
     span{
       transition: all 0.2s;
     }
 
     :hover{
-      color: #fab005;
+      color: $resource-yellow;
       transform: scale(1.1);
       cursor: pointer;
     }
@@ -152,10 +159,10 @@ main{
       font-family: Geologica;
       font-weight: 600;
       font-size: 24px;
-      color: #339af0;
+      color: $resource-blue;
 
       &:hover{
-        color: #fab005;
+        color: $resource-yellow;
         cursor: pointer;
       }
     }
