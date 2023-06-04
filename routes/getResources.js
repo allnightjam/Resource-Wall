@@ -5,9 +5,10 @@ const resourceQueries = require('../db/queries/resources');
 
 // GET route handler for /
 router.get('/', (req, res) => {
+  const userId = req.session.user_id;
   resourceQueries.getAllResource()
     .then((resources) => {
-      res.render('index',{resources});
+      res.render('index',{resources,userId});
     })
     .catch((error) => {
       console.error("Error retrieving resources:", error);
@@ -17,7 +18,9 @@ router.get('/', (req, res) => {
 
 // GET route handler for /myresources
 router.get('/myresources', (req, res) => {
-  const userId = 1; //Set userId temporally
+  const userId = req.session.user_id;
+  console.log("get userId from session is ", userId);
+  // const userId = 1; //Set userId temporally
   resourceQueries.getResourceByUserId(userId)
     .then((resources) => {
       res.render('myresources',{resources});
