@@ -35,6 +35,8 @@ const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
 const categoriesRoutes = require('./routes/categories');
 const resourceRoutes = require('./routes/resource');
+const getResourceRoutes = require('./routes/getResources');
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -44,15 +46,17 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/categories',categoriesRoutes);
 app.use('/addResource',resourceRoutes);
+app.use('/',getResourceRoutes);
+app.use('/myresources', getResourceRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
+// app.get('/', (req, res) => {
+//   res.render('index');
+// });
 
 
 /////////////////////////////////////
@@ -83,20 +87,20 @@ function generateRandomString() {
 
 const getUserByEmail = function(email, database) {
   for (let user in database) {
-    if (database[user].email === email){
+    if (database[user].email === email) {
       return database[user];
     }
   }
   return null;
 };
 
-app.get('/myresources', (req, res)=>{
-  res.render('myresources');
-})
+// app.get('/myresources', (req, res)=>{
+//   res.render('myresources');
+// });
 
 app.get('/addresource', (req, res)=>{
   res.render('addresource');
-})
+});
 
 // app.post('/addresource', (req, res)=>{
 //   getMaxIDFromResource().then(id=>{
@@ -120,7 +124,7 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/login", (req,res) => {
-  const user = users[req.body.id]
+  const user = users[req.body.id];
   const templateVars = { user: false };
   res.render("login", templateVars);
 });
