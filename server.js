@@ -67,23 +67,16 @@ app.get('/', (req, res) => {
   let templateVars = {
     userId: null
   };
-  if (isLoggedIn(req.session.user_id)){
+  if (isLoggedIn(req.session.user_id)) {
 
     templateVars = {
       userId: req.session.user_id
-    }
-  }
+    };
+  };
 
   return res.render('index', templateVars);
 
 });
-
-
-////////////////////////////////////
-
-// app.get('/myresources', (req, res)=>{
-//   res.render('myresources');
-// });
 
 app.get('/addresource', (req, res)=>{
   res.render('addresource');
