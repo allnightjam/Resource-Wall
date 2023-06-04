@@ -8,9 +8,23 @@
 const express = require('express');
 const router  = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('users');
-});
+const profileQueries = require('../db/queries/users');
 
+// router.get('/', (req, res) => {
+//   res.render('users');
+// });
+
+router.get('/', (req, res) => {
+  const userId = req.session.user_id;
+  profileQueries.getUsersById(userId)
+    .then((users) => {
+      console.log("get user from db :", users);
+      res.render('userprofile',{users});
+    })
+    .catch((error) => {
+      console.error("Error retrieving user-profile:", error);
+      res.status(500).json({ error: "Failed to retrieve user-profile" });
+    });
+});
 
 module.exports = router;
