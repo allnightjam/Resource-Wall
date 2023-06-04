@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEARCH</title>
+  <link rel="stylesheet" href="/styles/search.css"/>
+</head>
+<body>
+  <div>
+    <form class="profile-button" method="GET" action="/profile">
+      <button>Profile</button>
+    </form>
+  </div>
+  <div>
+    <form class="logout-button" method="POST" action="/logout">
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+    <div class="main-search">
+      <h1 class="search-title">SEARCH</h1>
+      <form class="search-bar" method = "GET" action="/search">
+        <div class="search-text">
+          <input type="search-text-box" name="search-text-box" id="search-text-box" placeholder="Search within resources">
+          <button>SEARCH</button>
+        </div>
+    </div>
+</body>
+</html>
