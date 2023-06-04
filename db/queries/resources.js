@@ -36,4 +36,12 @@ const getResourceByUserId = function(userId) {
     });
 };
 
-module.exports = { addResource, getAllResource, getResourceByUserId};
+const getMaxIDFromResource = () => {
+  return db.query('SELECT MAX(id) FROM RESOURCES')
+    .then(data => {
+      return data.rows[0].id;
+    });
+};
+
+module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource};
+

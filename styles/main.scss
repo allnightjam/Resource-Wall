@@ -38,6 +38,14 @@ body {
       text-decoration: none;
     }
 
+    .user-login{
+      transition: all 0.3s;
+      color: #fff;
+      text-decoration: none;
+      background-color: transparent;
+      border: none;
+    }
+
 
     :hover{
       cursor: pointer;
@@ -55,6 +63,11 @@ main{
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 40px;
   row-gap: 40px;
+
+  & .resource-item-link{
+    text-decoration: none;
+    color: black;
+  }
 }
 
 .resource-item{
@@ -144,8 +157,8 @@ main{
   & .category-part{
     display: flex;
     gap: 40px;
-    font-family: Geologica;
-    font-weight: 400;
+    font-family: Caveat;
+    font-weight: 700;
     font-size: 30px;
     color: $resource-blue;
 
@@ -169,6 +182,8 @@ main{
       font-family: Geologica;
       font-weight: 600;
       font-size: 24px;
+      background-color: transparent;
+      border: none;
       color: $resource-blue;
 
       &:hover{
@@ -177,7 +192,7 @@ main{
       }
     }
 
-    & .search-text{
+    & #search-text{
       padding: 0 20px;
       height: 36px;
       width: 300px;
@@ -194,4 +209,6 @@ main{
 
 }
 
-
+.hidden {
+  display:none;
+}
