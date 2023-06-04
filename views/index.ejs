@@ -69,7 +69,7 @@
     <div class="resource-container">
 
       <% for (let id in resources) { %>
-     <a class="resource-item-link" href="resource">
+     <a class="resource-item-link" href="/resource/<%= resources[id].id %>">
       <div class="resource-item">
         <img class="resource-item-img" src="<%= resources[id].photo_url%>">
         <h3 class="resource-title"><%= resources[id].title%></h3>
