@@ -13,17 +13,17 @@ const addResource = function(resource) {
     });
 };
 
-const getAllResource = () => {
-  console.log("inside db queries function----------------");
-  return db.query('SELECT * FROM resources')
-    .then(data => {
-      console.log("resources from database *****************", data.rows);
-      return data.rows;
-    })
-    .catch(error => {
-      console.error("Error retrieving resources in queries:", error);
-      throw error; // Throw the error to propagate it to the caller
-    });
-};
+// const getAllResource = () => {
+//   console.log("inside db queries function----------------");
+//   return db.query('SELECT * FROM resources')
+//     .then(data => {
+//       console.log("resources from database *****************", data.rows);
+//       return data.rows;
+//     })
+//     .catch(error => {
+//       console.error("Error retrieving resources in queries:", error);
+//       throw error; // Throw the error to propagate it to the caller
+//     });
+// };
 
-module.exports = { addResource, getAllResource };
+module.exports = { addResource };
