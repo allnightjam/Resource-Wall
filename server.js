@@ -98,13 +98,13 @@ app.get('/addresource', (req, res)=>{
   res.render('addresource');
 })
 
-app.post('/addresource', (req, res)=>{
-  getMaxIDFromResource().then(id=>{
-    const maxId = id;
+// app.post('/addresource', (req, res)=>{
+//   getMaxIDFromResource().then(id=>{
+//     const maxId = id;
 
 
-  })
-})
+//   })
+// })
 
 app.get('/userprofile', (req, res)=>{
   res.render('userprofile');
