@@ -40,7 +40,12 @@
     </nav>
   </header>
   <main>
-
+  <div class = "user-profile">
+    <img class="resource-user-avatar" src="<%= users[0].avatar%>">
+    <h3 class="user-name"> <%= users[0].username%> </h3>
+    <p class="user-email"><%= users[0].email%></p>
+    <p class="profile-description"> <%= users[0].profile_description%> </p>
+  </div>
     </main>
     </body>
     </html>
