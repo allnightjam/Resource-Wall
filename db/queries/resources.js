@@ -48,6 +48,18 @@ const getMaxIDFromResource = () => {
     });
 };
 
-module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource};
+const getResourceById = function(id) {
+  const queryString = `SELECT * FROM resources where id = $1`;
+  return db.query(queryString, [id])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(error => {
+      console.error("Error getResourceById in queries:", error);
+      throw error;
+    });
+};
+
+module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource, getResourceById};
 
 
