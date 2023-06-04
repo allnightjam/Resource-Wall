@@ -30,4 +30,19 @@ router.get('/myresources', (req, res) => {
       res.status(500).json({ error: "Failed to retrieve resources" });
     });
 });
+
+router.get('/resource/:id', (req, res) => {
+
+  const id = req.params.id;
+  console.log("get id from req:  ", id);
+  resourceQueries.getResourceById(id)
+    .then((resources) => {
+      res.render('resource',{resources});
+    })
+    .catch((error) => {
+      console.error("Error retrieving resource:", error);
+      res.status(500).json({ error: "Failed to retrieve resource in detail page" });
+    });
+});
+
 module.exports = router;
