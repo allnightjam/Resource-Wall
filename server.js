@@ -59,6 +59,7 @@ app.use('/categories',categoriesRoutes);
 app.use('/addResource',resourceRoutes);
 app.use('/',getResourceRoutes);
 app.use('/myresources', getResourceRoutes);
+app.use('/userprofile', usersRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -91,9 +92,9 @@ app.get('/addresource', (req, res)=>{
 
 });
 
-app.get('/userprofile', (req, res)=>{
-  res.render('userprofile');
-})
+// app.get('/userprofile', (req, res)=>{
+//   res.render('userprofile');
+// })
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
