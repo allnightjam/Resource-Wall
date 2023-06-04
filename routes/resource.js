@@ -20,14 +20,14 @@ router.post('/', (req, res) => {
 });
 
 //GET route handler for /getAllResource
-router.get('/', (req, res) => {
-  resourceQueries.getAllResource()
-    .then((resources) => {
-      res.json(resources);
-    })
-    .catch((error) => {
-      console.error("Error retrieving resources:", error);
-      res.status(500).json({ error: "Failed to retrieve resources" });
-    });
-});
+// router.get('/', (req, res) => {
+//   resourceQueries.getAllResource()
+//     .then((resources) => {
+//       res.json(resources);
+//     })
+//     .catch((error) => {
+//       console.error("Error retrieving resources:", error);
+//       res.status(500).json({ error: "Failed to retrieve resources" });
+//     });
+// });
 module.exports = router;
