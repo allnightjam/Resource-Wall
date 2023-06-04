@@ -1,9 +1,9 @@
 const db = require('../connection');
 
-const addResource = function(resource) {
-   
-  const queryString = `INSERT INTO resources(title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, 2 ) RETURNING *`;
-  return db.query(queryString, [resource['resource-title'], resource['resource-url'], resource['resource-image'], resource['resource-desc'], resource['resource-category']])
+const addResource = function(resource,userId) {
+  
+  const queryString = `INSERT INTO resources(title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, $6 ) RETURNING *`;
+  return db.query(queryString, [resource['resource-title'], resource['resource-url'], resource['resource-image'], resource['resource-desc'], resource['resource-category'], userId])
     .then(data => {
       return data.rows;
     })
