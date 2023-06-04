@@ -24,15 +24,18 @@ body {
 
   .nav-right{
     display: flex;
-    gap: 20px;
+    gap: 50px;
     padding: 0 40px;
-    color: $resource-yellow;
+
     font-family: Geologica;
     font-weight: 600;
     font-size: 28px;
+    font-family: Finger Paint;
 
-    span{
+    a{
       transition: all 0.3s;
+      color: #fff;
+      text-decoration: none;
     }
 
 
@@ -135,8 +138,8 @@ main{
     display: flex;
     gap: 40px;
     font-family: Geologica;
-    font-weight: 600;
-    font-size: 34px;
+    font-weight: 400;
+    font-size: 30px;
     color: $resource-blue;
 
     span{
