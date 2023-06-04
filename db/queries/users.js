@@ -40,4 +40,11 @@ const searchUserByEmail = (email) =>{
     })
 }
 
-module.exports = { getUsers, getMaxIDFromUsers, addNewUser, searchUserByEmail };
+const getUsersById = (id) => {
+  return db.query(`SELECT * FROM users WHERE id = $1;`,[id])
+    .then(data => {
+      return data.rows;
+    });
+};
+
+module.exports = { getUsers, getMaxIDFromUsers, addNewUser, searchUserByEmail,getUsersById };
