@@ -56,14 +56,14 @@
               <img class="resource-user-avatar" src="<%= resources[id].avatar%>">
               <span class="resource-user-name"><%= resources[id].username%></span>
             </div>
-            <div class="resource-created"><%= resources[id].created_at%></div>
+            <div class="resource-created"><%= resources[id].created_at.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></div>
           </div>
           <div class="resource-item-info">
             <form method="POST" action="/addlikesOnMyresource" id="add-likes-form-<%= resources[id].id %>">
               <input type="hidden" name="resource-id" value="<%= resources[id].id%>">
             <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[id].id%>" onclick="likesSubmitForm('<%= resources[id].id%>')"></i><span><%= resources[id].t_likes%></span></div>
             </form>
-            <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
+            <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%= resources[id].t_comments%></span></div>
             <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
           </div>
         </div>
