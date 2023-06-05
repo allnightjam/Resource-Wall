@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const { getMaxIDFromResource } = require('./db/queries/resources');
 const { getMaxIDFromUsers, addNewUser } = require('./db/queries/users');
-const { getUserByEmail, authenticateUser } = require('./help')
+const { getUserByEmail, authenticateUser, isLoggedIn } = require('./help')
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -60,7 +60,18 @@ app.use('/addResource',resourceRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.render('index');
+  let templateVars = {
+    userId: null
+  };
+  if (isLoggedIn(req.session.user_id)){
+
+    templateVars = {
+      userId: req.session.user_id
+    }
+  }
+
+  return res.render('index', templateVars);
+
 });
 
 
@@ -102,6 +113,14 @@ app.get("/search", (req,res) => {
   res.render("search");
 });
 
+app.post("/search", (req, res)=>{
+
+})
+
+app.get("/profile", (req,res) => {
+  res.render("profile");
+});
+
 app.post("/register", (req,res) => {
   let userId = '';
 
@@ -124,18 +143,20 @@ app.post("/register", (req,res) => {
 
     const hashedPassword = bcrypt.hashSync(password, salt);
 
-    addNewUser({
+    const user = {
       id: Number(userId),
       username,
       email,
       password: hashedPassword,
       avatar: '',
       profile_description: ''
-    })
+    }
 
-    req.session.user_id = userId + '';
+    addNewUser(user);
 
-    res.redirect('/');
+    req.session.user_id = userId;
+
+    return res.redirect('/');
     })
 
 
@@ -144,17 +165,23 @@ app.post("/register", (req,res) => {
 app.post("/login", (req,res) => {
   const { email, password } = req.body;
 
+  console.log(email, password);
   if (email === '' || password === '') {
-    res.status(400).send('email and password cannot be empty');
-  }
-  const { err, user } = authenticateUser(email, password);
-
-  if (err) {
-    return res.json(err);
+    return res.status(400).send('email and password cannot be empty');
   }
 
-  req.session.user_id = user.id;
-  return res.redirect('/');
+  authenticateUser(email, password).then(result=>{
+    const { err, user } =  result;
+
+    if (err) {
+      return res.json(err);
+    }
+
+    req.session.user_id = user.id;
+    return res.redirect('/');
+  })
+
+
 });
 
 app.post("/logout", (req,res) => {
