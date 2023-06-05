@@ -40,12 +40,17 @@
     </nav>
   </header>
   <main>
-  <div class = "user-profile">
-    <img class="resource-user-avatar" src="<%= users[0].avatar%>">
-    <h3 class="user-name"> <%= users[0].username%> </h3>
-    <p class="user-email"><%= users[0].email%></p>
-    <p class="profile-description"> <%= users[0].profile_description%> </p>
-  </div>
+    <form method="POST" action="/updateProfile" id="update-profile-form">
+      <div class = "user-profile">
+        <img class="user-avatar" src="<%= users[0].avatar%>">
+        <h3 class="user-name"><%= users[0].username%> </h3>
+        <p class="user-email">Email: <%= users[0].email%></p>
+        <p class="profile-description"> Profie: 
+        <textarea name="description" rows="4"><%= users[0].profile_description%> </textarea></p>
+        <p>Update avatar link: <input type="avatar-url" name="avatar_url"/></p>
+        <button class="profile-update-btn" type="submit">UPDATE PROFILE</button>
+      </div>
+   </form>
     </main>
     </body>
     </html>
