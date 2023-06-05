@@ -46,7 +46,13 @@
       <input type="text" name="resource-title" placeholder="RESOURCE TITLE" />
       <input type="text" name="resource-image" placeholder="IMAGE URL" />
       <textarea name="resource-desc" placeholder="RESOURCE DESCRIPTION" rows="4"></textarea>
-      <div class="resource-category">CHOOSE CATEGORY</div>
+      <select class="resource-category" name="resource-category">
+        <option value="music">MUSIC</option>
+        <option value="politics">POLITICS</option>
+        <option value="physics">PHYSICS</option>
+        <option value="religion">RELIGION</option>
+        <option value="environment">ENVIRONMENT</option>
+      </select>
       <button class="resource-add-btn" type="submit">ADD RESOURCE</button>
     </form>
   </main>

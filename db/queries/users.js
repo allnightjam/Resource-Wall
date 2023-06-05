@@ -7,4 +7,13 @@ const getUsers = () => {
     });
 };
 
-module.exports = { getUsers };
+const getMaxIDFromResource = () =>{
+  return db.query('SELECT MAX(id) FROM RESOURCES')
+  .then(data=>{
+    return data.rows[0].id;
+  })
+}
+
+const addResource =
+
+module.exports = { getUsers, getMaxIDFromResource };
