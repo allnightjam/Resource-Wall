@@ -6,6 +6,7 @@ const resourceQueries = require('../db/queries/resources');
 // GET route handler for /
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
+  
   resourceQueries.getAllResource()
     .then((resources) => {
       res.render('index',{resources,userId});
