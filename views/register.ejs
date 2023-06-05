@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>REGISTER</title>
+  <title>Register</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/register.css" />
+
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Courgette&family=Finger+Paint&family=Geologica:wght@300;400;600&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" type="text/css" />
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
 </head>
+
 <body>
-  <div class="login">
-    <form method="GET" action="/login">
-      <button type="submit">Login</button>
-    </form>
-  </div>
+  <header>
+    <nav class="resource-nav">
+      <div class="nav-left">
+        <h1>REGISTER</h1>
+      </div>
+      <div class="nav-right">
+        <a class="user-back" onclick="history.back()">BACK</a>
+      </div>
+    </nav>
+  </header>
+  <main>
   <div class="main-register">
-    <h1 class="register-title">REGISTER</h1>
-    <form method = "POST" action="/register">
-      <div class="avatar">
-        <input type="avatar-url" name="avatar-url">
-        <label>Avatar Url</label>
-      </div>
-      <div class="name">
-        <input type="name" name="name">
-        <label>Name</label>
-      </div>
-      <div class="username">
-        <input type="username" name="username">
-        <label>Username</label>
-      </div>
-      <div class="email">
-        <input type="email" name="email">
-        <label>Email</label>
-      </div>
-      <div class="password">
-        <input type="password" name="password">
-        <label>Password</label>
-      </div>
-      <div class="register-submit">
-        <button type="submit"> Register </button>
-      </div>
+    <form method = "POST" action="/register" id="register-form">
+      <input type="text" name="username" class="username" placeholder="USERNAME" />
+      <input type="email" name="email" class="email" placeholder="EMAIL" />
+      <input type="password" name="password" class="password" placeholder="******" />
+      <button class="regitser-btn" type="submit">REGISTER</button>
     </form>
   </div>
+</main>
 </body>
 </html>
