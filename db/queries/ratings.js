@@ -48,7 +48,7 @@ const isRated = function(resourceId,userId) {
 const avgRating = function(resourceId) {
   
   const queryString = `SELECT resource_id, 
-                        ROUND(AVG(rating), 2) AS avg_rating
+                        ROUND(AVG(rating), 1) AS avg_rating
                       FROM resource_ratings
                       GROUP BY resource_id
                       HAVING resource_id = $1`;
