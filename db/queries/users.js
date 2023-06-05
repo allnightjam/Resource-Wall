@@ -11,17 +11,21 @@ const getUsers = () => {
 const getMaxIDFromUsers = () =>{
   return db.query('SELECT MAX(id) FROM USERS;')
     .then(data=>{
-      return data.rows[0].id;
+      console.log(`--------------max user id in users table------------${JSON.stringify(data)}`);
+      return data.rows[0].max;
+    })
+    .catch(err=>{
+      console.log('get max user id qurey error:', err.stack);
     })
 }
 
 const addNewUser = (user) =>{
-  return db.query(`INSERT INTO USERS(id, username, email, password) VALUES ($1, $2, $3, $4);`, [`${user.id}` ,`${user.username}`, `${user.email}`, `${user.password}`])
+  return db.query(`INSERT INTO USERS(id, username, email, password, avatar, profile_description) VALUES ($1, $2, $3, $4, $5, $6);`, [`${user.id}` ,`${user.username}`, `${user.email}`, `${user.password}`, `${user.avatar}`, `${user.profile_description}`])
     .then(res=>{
       console.log(res.rows);
     })
     .catch(err=>{
-      console.log('qurey error:', err.stack);
+      console.log('add new user qurey error:', err.stack);
     })
 }
 
@@ -31,7 +35,7 @@ const searchUserByEmail = (email) =>{
       return res.rows;
     })
     .catch(err=>{
-      console.log('query error:', err.stack);
+      console.log('searchUserByEmail query error:', err.stack);
     })
 }
 

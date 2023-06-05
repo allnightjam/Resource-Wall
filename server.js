@@ -109,35 +109,40 @@ app.get("/profile", (req,res) => {
 app.post("/register", (req,res) => {
   let userId = '';
 
+  console.log('=========================try to get user id from users table=========================');
   // get max id from users table
   getMaxIDFromUsers().then(id=>{
     userId = Number(id) +1;
-    console.log(userId);
-  })
+    console.log(`======USER ID=======${userId}=================`);
 
-  const { username, email, password } = req.body;
+    const { username, email, password } = req.body;
 
-  if(email === '' || username === '' || password === ''){
-    return res.status(400).send('username, email and password cannot be empty');
-  }
+    if(email === '' || username === '' || password === ''){
+      return res.status(400).send('username, email and password cannot be empty');
+    }
 
-  if(getUserByEmail(email)){
-    // user has already exist
-    return res.status(400).send('user is already registered');
-  }
+    if(getUserByEmail(email)){
+      // user has already exist
+      return res.status(400).send('user is already registered');
+    }
 
-  const hashedPassword = bcrypt.hashSync(password, salt);
+    const hashedPassword = bcrypt.hashSync(password, salt);
 
-  addNewUser({
-    id: userId,
-    username,
-    email,
-    password: hashedPassword
-  })
+    addNewUser({
+      id: Number(userId),
+      username,
+      email,
+      password: hashedPassword,
+      avatar: '',
+      profile_description: ''
+    })
 
-  req.session.user_id = userId;
+    req.session.user_id = userId + '';
 
-  res.redirect('/');
+    res.redirect('/');
+    })
+
+
 });
 
 app.post("/login", (req,res) => {
