@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 const resourceQueries = require('../db/queries/resources');
+const commentQueries = require('../db/queries/resourceComments');
 
 // GET route handler for /
 router.get('/', (req, res) => {
@@ -20,8 +21,6 @@ router.get('/', (req, res) => {
 // GET route handler for /myresources
 router.get('/myresources', (req, res) => {
   const userId = req.session.user_id;
-  console.log("get userId from session is ", userId);
-  // const userId = 1; //Set userId temporally
   resourceQueries.getResourceByUserId(userId)
     .then((resources) => {
       res.render('myresources',{resources});
@@ -35,13 +34,18 @@ router.get('/myresources', (req, res) => {
 router.get('/resource/:id', (req, res) => {
 
   const id = req.params.id;
-  console.log("get id from req:  ", id);
   resourceQueries.getResourceById(id)
     .then((resources) => {
-      res.render('resource',{resources});
+      return commentQueries.getComments(id)
+        .then((comments) => {
+          return commentQueries.getTotalComments(id)
+            .then((totalComments) => {
+              res.render('resource', { resources, comments, totalComments});
+            });
+        });
     })
     .catch((error) => {
-      console.error("Error retrieving resource:", error);
+      console.error("Error retrieving resource detail:", error);
       res.status(500).json({ error: "Failed to retrieve resource in detail page" });
     });
 });
