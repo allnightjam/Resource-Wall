@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 const resourceQueries = require('../db/queries/resources');
+const categoryQueries = require('../db/queries/category');
 
 // GET route handler for /addResource
 router.post('/', (req, res) => {
@@ -20,15 +21,14 @@ router.post('/', (req, res) => {
     });
 });
 
-//GET route handler for /getAllResource
-// router.get('/', (req, res) => {
-//   resourceQueries.getAllResource()
-//     .then((resources) => {
-//       res.json(resources);
-//     })
-//     .catch((error) => {
-//       console.error("Error retrieving resources:", error);
-//       res.status(500).json({ error: "Failed to retrieve resources" });
-//     });
-// });
+router.get('/', (req, res)=>{
+  categoryQueries.getCategories().then(data=>{
+    let templateVars = {
+      resources: data,
+    };
+    console.log("the templatevars to addresource page :",templateVars);
+    return res.render('addresource', templateVars);
+  });
+
+});
 module.exports = router;
