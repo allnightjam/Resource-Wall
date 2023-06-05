@@ -1,0 +1,40 @@
+$resource-yellow: #ffd43b;
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 40px;
+
+  input{
+      width: 400px;
+
+      padding: 0 12px;
+      height: 45px;
+      position: relative;
+      left: 0;
+      outline: none;
+      border: 1px solid #cdcdcd;
+      border-color: rgba(0, 0, 0, .15);
+      background-color: white;
+      font-size: 16px;
+  }
+
+   .login-btn{
+      margin-top: 20px;
+      border: none;
+      height: 45px;
+      padding: 12px;
+      color: #fff;
+      font-weight: 800;
+      background-color: $resource-yellow;
+      border-radius: 2px;
+      transition: all 0.2s;
+
+      &:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+      }
+  }
+}
