@@ -1,0 +1,55 @@
+$resource-yellow: #ffd43b;
+#add-resource-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 40px;
+  font-family: Geologica;
+  input,
+  textarea,
+  .resource-category{
+      padding: 0 12px;
+      height: auto;
+      width: 600px;
+      position: relative;
+      left: 0;
+      outline: none;
+      border: 1px solid #cdcdcd;
+      border-color: rgba(0, 0, 0, .15);
+      background-color: white;
+      font-size: 16px;
+  }
+
+  input,
+  .resource-category{
+    height: 48px;
+  }
+
+  .resource-category{
+    color: gray;
+    padding: 12px;
+  }
+
+  textarea{
+    padding: 12px;
+  }
+
+  .resource-add-btn{
+    margin-top: 20px;
+    border: none;
+    height: 45px;
+    padding: 12px;
+    color: #fff;
+    font-weight: 800;
+    background-color: $resource-yellow;
+    border-radius: 6px;
+    transition: all 0.2s;
+
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+  }
+}
