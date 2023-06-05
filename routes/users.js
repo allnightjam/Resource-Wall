@@ -27,4 +27,21 @@ router.get('/', (req, res) => {
     });
 });
 
+
+router.post('/', (req, res) => {
+  const data = req.body;
+  const userId = req.session.user_id;
+  profileQueries.updateProfile(data,userId)
+    .then((data) => {
+      if (!data) {
+        return res.send({ error: "error" });
+      }
+      res.redirect('/userprofile');
+    })
+    .catch((error) => {
+      console.error("Error update profile:", error);
+      res.status(500).json({ error: "Failed to update profile" });
+    });
+});
+
 module.exports = router;
