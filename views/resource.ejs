@@ -67,7 +67,7 @@
               <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[0].id%>" onclick="likesSubmitForm('<%= resources[0].id%>')"></i><span><%= resources[0].t_likes%></span></div>
               </form>
               <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%=totalComments[0].total_comments%></span></div>
-              <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
+              <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span><%= avgRating.avg_rating %></span></div>
             </div>
             <div class="resource-desc">
               <p><%= resources[0].description%></p>
@@ -93,6 +93,7 @@
           </div>
 
           <div class="star-rating">
+            <input type="hidden" name="rating-resource-id" id = "rating-resource-id" value="<%= resources[0].id%>">
               <input type="radio" id="5-stars" name="rating" value="5" class="start-radio" />
               <label for="5-stars" class="star">&#9733;</label>
               <input type="radio" id="4-stars" name="rating" value="4" class="start-radio"/>
