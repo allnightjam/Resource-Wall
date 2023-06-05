@@ -115,10 +115,6 @@ app.get("/search", (req,res) => {
   res.render("search");
 });
 
-app.get("/profile", (req,res) => {
-  res.render("profile");
-});
-
 app.post("/register", (req,res) => {
   const user = getUserByEmail(req.body.email,users);
   const newUser = {
@@ -152,10 +148,6 @@ app.post("/login", (req,res) => {
 app.post("/logout", (req,res) => {
   req.session = null;
   res.redirect("/login");
-});
-
-app.post("/profile", (req,res) => {
-  res.render("profile");
 });
 
 
