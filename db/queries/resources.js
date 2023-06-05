@@ -15,7 +15,8 @@ const addResource = function(resource,userId) {
 };
 
 const getAllResource = () => {
-  return db.query('SELECT * FROM resources')
+  const queryString = `SELECT resources.*, users.username, users.avatar FROM resources LEFT JOIN users ON resources.user_id = users.id`;
+  return db.query(queryString)
     .then(data => {
       return data.rows;
     })
@@ -26,7 +27,7 @@ const getAllResource = () => {
 };
 
 const getResourceByUserId = function(userId) {
-  const queryString = `SELECT * FROM resources where user_id = $1`;
+  const queryString = `SELECT resources.*, users.username, users.avatar FROM resources LEFT JOIN users ON resources.user_id = users.id where user_id = $1`;
   return db.query(queryString, [userId])
     .then(data => {
       return data.rows;
@@ -49,7 +50,7 @@ const getMaxIDFromResource = () => {
 };
 
 const getResourceById = function(id) {
-  const queryString = `SELECT * FROM resources where id = $1`;
+  const queryString = `SELECT resources.*, users.username, users.avatar FROM resources LEFT JOIN users ON resources.user_id = users.id where resources.id = $1`;
   return db.query(queryString, [id])
     .then(data => {
       return data.rows;
