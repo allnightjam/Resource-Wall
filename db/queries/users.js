@@ -16,8 +16,8 @@ const getMaxIDFromUsers = () =>{
     })
     .catch(err=>{
       console.log('get max user id qurey error:', err.stack);
-    })
-}
+    });
+};
 
 const addNewUser = (user) =>{
   return db.query(`INSERT INTO USERS(id, username, email, password, avatar, profile_description) VALUES ($1, $2, $3, $4, $5, $6);`, [`${user.id}` ,`${user.username}`, `${user.email}`, `${user.password}`, `${user.avatar}`, `${user.profile_description}`])
@@ -26,8 +26,8 @@ const addNewUser = (user) =>{
     })
     .catch(err=>{
       console.log('add new user qurey error:', err.stack);
-    })
-}
+    });
+};
 
 const searchUserByEmail = (email) =>{
   return db.query(`SELECT * FROM USERS WHERE EMAIL = $1`, [`${email}`])
@@ -48,13 +48,31 @@ const getUsersById = (id) => {
 };
 
 const updateProfile = (data,userId)=> {
-  return db.query(`UPDATE users SET avatar = $1, profile_description = $2 where id = $3 RETURNING *`,[data.avatar_url, data.description, userId])
-    .then(res=>{
-      console.log(res.rows);
+  if (data.description === '') {
+    return db.query(`UPDATE users SET avatar = $1 where id = $2 RETURNING *`, [data.avatar_url, userId])
+      .then(res => {
+        return res.rows;
+      })
+      .catch(err => {
+        console.log('UPDATE user set description qurey error:', err.stack);
+      });
+  }
+  if (data.avatar_url === '') {
+    return db.query(`UPDATE users SET profile_description = $1 where id = $2 RETURNING *`, [data.description, userId])
+      .then(res => {
+        return res.rows;
+      })
+      .catch(err => {
+        console.log('UPDATE user set avatar qurey error:', err.stack);
+      });
+  }
+  
+  return db.query(`UPDATE users SET avatar = $1, profile_description = $2 where id = $3 RETURNING *`, [data.avatar_url, data.description, userId])
+    .then(res => {
       return res.rows;
     })
-    .catch(err=>{
-      console.log('UPDATE user qurey error:', err.stack);
+    .catch(err => {
+      console.log('UPDATE user avatar and description qurey error:', err.stack);
     });
 
 };
