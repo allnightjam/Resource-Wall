@@ -4,7 +4,7 @@ require('dotenv').config();
 const { getMaxIDFromResource, addResource } = require('./db/queries/resources');
 const { getMaxIDFromUsers, addNewUser, updateProfile } = require('./db/queries/users');
 const { getUserByEmail, authenticateUser, isLoggedIn } = require('./help');
-const { getCategories } = require('./db/queries/category');
+// const { getCategories } = require('./db/queries/category');
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -48,7 +48,7 @@ const categoriesRoutes = require('./routes/categories');
 const resourceRoutes = require('./routes/resource');
 const getResourceRoutes = require('./routes/getResources');
 const likesRoutes = require('./routes/resourceLikes');
-
+const commentRoutes = require('./routes/comments');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -64,6 +64,7 @@ app.use('/userprofile', usersRoutes);
 app.use('/updateProfile', usersRoutes);
 app.use('/addlikes',likesRoutes);
 app.use('/addlikesOnMyresource',likesRoutes);
+app.use('/addcomments',commentRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -79,22 +80,22 @@ app.get('/', (req, res) => {
     templateVars = {
       userId: req.session.user_id
     };
-  };
+  }
 
   return res.render('index', templateVars);
 
 });
 
-app.get('/addresource', (req, res)=>{
-  getCategories().then(data=>{
-    let templateVars = {
-      resources: data,
-    };
+// app.get('/addresource', (req, res)=>{
+//   getCategories().then(data=>{
+//     let templateVars = {
+//       resources: data,
+//     };
 
-    return res.render('addresource', templateVars);
-  });
+//     return res.render('addresource', templateVars);
+//   });
 
-});
+// });
 
 // app.get('/userprofile', (req, res)=>{
 //   res.render('userprofile');
@@ -120,23 +121,23 @@ app.post("/search", (req, res)=>{
 
 })
 
-app.get("/profile", (req,res) => {
-  res.render("profile");
-});
+// app.get("/profile", (req,res) => {
+//   res.render("profile");
+// });
 
-app.post("/profile", (req, res)=>{
-  const { avatar_url, description } = req.body;
-  console.log(`-------------avatar------------${avatar_url}`);
-  updateProfile({ avatar_url, description }, req.session.user_id).then(result=>{
-    console.log(result);
+// app.post("/profile", (req, res)=>{
+//   const { avatar_url, description } = req.body;
+//   console.log(`-------------avatar------------${avatar_url}`);
+//   updateProfile({ avatar_url, description }, req.session.user_id).then(result=>{
+//     console.log(result);
 
-    res.redirect('/');
-  })
-})
+//     res.redirect('/');
+//   })
+// })
 
-app.get("/resource", (req, res)=>{
-  res.render("resource");
-})
+// app.get("/resource", (req, res)=>{
+//   res.render("resource");
+// })
 
 app.post("/register", (req,res) => {
   let userId = '';
