@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 const addResource = function(resource,userId) {
-  
+
   const queryString = `INSERT INTO resources(title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, $6 ) RETURNING *`;
   return db.query(queryString, [resource['title'], resource['resource_url'], resource['photo_url'], resource['description'], resource['category_id'], userId])
     .then(data => {
@@ -25,7 +25,7 @@ const getAllResource = () => {
                         SELECT resource_id, COUNT(*) AS t_comments
                           FROM resource_comments
                           GROUP BY resource_id
-                        ) AS comments 
+                        ) AS comments
                         ON resources.id = comments.resource_id
                       LEFT JOIN (
                         SELECT resource_id, COUNT(*) AS t_likes
@@ -98,9 +98,9 @@ const getMaxIDFromResource = () => {
 };
 
 const getResourceById = function(id) {
-  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes, users.username, users.avatar 
-        FROM resources 
-        LEFT JOIN users ON resources.user_id = users.id 
+  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes, users.username, users.avatar
+        FROM resources
+        LEFT JOIN users ON resources.user_id = users.id
         LEFT JOIN resource_likes ON resource_likes.resource_id = resources.id
         WHERE resources.id = $1
         GROUP BY resources.id, users.username, users.avatar`;
@@ -114,6 +114,27 @@ const getResourceById = function(id) {
     });
 };
 
-module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource, getResourceById};
+const getResourceByCategoryId = function(id) {
+  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes, users.username, users.avatar
+        FROM resources
+        LEFT JOIN users ON resources.user_id = users.id
+        LEFT JOIN resource_likes ON resource_likes.resource_id = resources.id
+        WHERE resources.category_id = $1
+        GROUP BY resources.id, users.username, users.avatar`;
+  return db.query(queryString, [id])
+    .then(data => {
+      console.log("++++++", data.rows);
+      return data.rows;
+    })
+    .catch(error => {
+      console.error("Error getResourceByCategoryId in queries:", error);
+      throw error;
+    });
+};
+// getResourceByCategoryId(1);
+
+
+
+module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource,getResourceById, getResourceByCategoryId};
 
 

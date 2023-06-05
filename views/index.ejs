@@ -15,7 +15,7 @@
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  
+  <script defer src="/scripts/categories.js"></script>
 
 
   <!-- Google Font -->
@@ -35,7 +35,7 @@
   <header>
     <nav class="resource-nav">
       <div class="nav-left">
-        <h1>RESOURCE WALL</h1>
+        <h1> <a href="/" class="resource-main-title">RESOURCE WALL</a></h1>
       </div>
       <div class="nav-right">
         <% if (userId) { %>
@@ -56,11 +56,11 @@
     <div class="timeago" datetime="2016-06-30 09:20:00"></div>
     <section class="category-search-section">
       <div class="category-part">
-        <span class="category-title">Educational</span>
-        <span class="category-title">Lifestyle</span>
-        <span class="category-title">Hobbies</span>
-        <span class="category-title">Entertainment</span>
-        <span class="category-title">Miscellaneous</span>
+        <% categories.forEach(function(category) { %>
+          <a class="category-link" href="/?category_id=<%= category.id %>">
+            <span class="category-title"> <%= category.name %> </span>
+          </a>
+        <% }) %>
       </div>
       <div class="search-part">
         <form action="/search" method="POST"></form>
@@ -71,7 +71,7 @@
     </section>
     <div class="resource-container">
       <% for (let id in resources) { %>
-     
+
       <div class="resource-item">
         <a class="resource-item-link" href="/resource/<%= resources[id].id %>">
         <img class="resource-item-img" src="<%= resources[id].photo_url%>">
@@ -97,7 +97,7 @@
           </div>
         </div>
       </div>
-    
+
       <%}%>
     </div>
   </main>

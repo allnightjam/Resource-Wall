@@ -61,6 +61,14 @@ $resource-yellow: #ffd43b;
         border-radius: 50%;
       }
     }
+
+    & .resource-item-info{
+      & .resource-item-comment,
+        .resource-item-rating{
+          display: flex;
+          align-items: center;
+        }
+    }
   }
 
   & .star-rating {

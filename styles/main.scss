@@ -7,6 +7,15 @@ $resource-background-color: #d0ebff;
 
 body {
    background: $resource-background-color;
+   padding-top: 120px;
+}
+
+header{
+  overflow: hidden;;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 
@@ -213,4 +222,13 @@ main{
 
 .hidden {
   display:none;
+}
+
+a {
+  text-decoration: none;
+  color: #339af0;
+}
+
+.resource-main-title {
+  color: $resource-yellow;
 }
