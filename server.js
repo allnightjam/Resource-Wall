@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const { getMaxIDFromResource } = require('./db/queries/resources');
 const { getMaxIDFromUsers, addNewUser } = require('./db/queries/users');
-const { getUserByEmail } = require('./help')
+const { getUserByEmail, authenticateUser } = require('./help')
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -95,9 +95,7 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/login", (req,res) => {
-  const user = users[req.body.id]
-  const templateVars = { user: false };
-  res.render("login", templateVars);
+  res.render("login");
 });
 
 app.get("/search", (req,res) => {
@@ -143,15 +141,19 @@ app.post("/register", (req,res) => {
 });
 
 app.post("/login", (req,res) => {
-  const user = getUserByEmail(req.body.email, users);
-  if (!user) {
-    return res.status(403).send("Email And/Or Password Invalid");
+  const { email, password } = req.body;
+
+  if (email === '' || password === '') {
+    res.status(400).send('email and password cannot be empty');
   }
-  if (req.body.password === user.password) {
-    req.body.id = user.id;
-    return res.redirect('/');
+  const { err, user } = authenticateUser(email, password);
+
+  if (err) {
+    return res.json(err);
   }
-  return res.status(403).send("Email And/Or Password Invalid");
+
+  req.session.user_id = user.id;
+  return res.redirect('/');
 });
 
 app.post("/logout", (req,res) => {

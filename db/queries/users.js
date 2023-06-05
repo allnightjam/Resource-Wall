@@ -35,5 +35,4 @@ const searchUserByEmail = (email) =>{
     })
 }
 
-
 module.exports = { getUsers, getMaxIDFromUsers, addNewUser, searchUserByEmail };
