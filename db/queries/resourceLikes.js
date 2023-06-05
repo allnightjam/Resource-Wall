@@ -6,7 +6,6 @@ const addLikes = function(resourceId,userId) {
   
   return db.query(queryString, [true,resourceId, userId])
     .then(data => {
-      console.log("add likes data from db -----------", data.rows);
       return data.rows;
     })
     .catch(error => {
