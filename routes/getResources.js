@@ -3,6 +3,7 @@ const router  = express.Router();
 
 const resourceQueries = require('../db/queries/resources');
 const commentQueries = require('../db/queries/resourceComments');
+const ratingQueries = require('../db/queries/ratings');
 
 // GET route handler for /
 router.get('/', (req, res) => {
@@ -40,7 +41,13 @@ router.get('/resource/:id', (req, res) => {
         .then((comments) => {
           return commentQueries.getTotalComments(id)
             .then((totalComments) => {
-              res.render('resource', { resources, comments, totalComments});
+              return ratingQueries.avgRating(id)
+                .then((avgRating) => {
+                  if (!avgRating) {
+                    avgRating = {'resource_id': id, 'avg_rating': '0' };
+                  }
+                  res.render('resource', { resources, comments, totalComments, avgRating});
+                });
             });
         });
     })
