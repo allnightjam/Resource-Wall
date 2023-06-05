@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
   const userId = req.session.user_id;
   profileQueries.getUsersById(userId)
     .then((users) => {
-      console.log("get user from db :", users);
       res.render('userprofile',{users});
     })
     .catch((error) => {
