@@ -121,6 +121,10 @@ app.get("/profile", (req,res) => {
   res.render("profile");
 });
 
+app.get("/resource", (req, res)=>{
+  res.render("resource");
+})
+
 app.post("/register", (req,res) => {
   let userId = '';
 
@@ -148,8 +152,8 @@ app.post("/register", (req,res) => {
       username,
       email,
       password: hashedPassword,
-      avatar: '',
-      profile_description: ''
+      avatar: 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png',
+      profile_description: 'say something about you'
     }
 
     addNewUser(user);
