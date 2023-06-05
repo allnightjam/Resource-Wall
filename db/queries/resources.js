@@ -3,7 +3,6 @@ const db = require('../connection');
 const addResource = function(resource,userId) {
   
   const queryString = `INSERT INTO resources(title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, $6 ) RETURNING *`;
-  // return db.query(queryString, [resource['resource-title'], resource['resource-url'], resource['resource-image'], resource['resource-desc'], resource['resource-category'], userId])
   return db.query(queryString, [resource['title'], resource['resource_url'], resource['photo_url'], resource['description'], resource['category_id'], userId])
     .then(data => {
       console.log(JSON.stringify(data.rows));
@@ -16,15 +15,26 @@ const addResource = function(resource,userId) {
 };
 
 const getAllResource = () => {
-  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes,users.username, users.avatar 
-          FROM resources 
-          LEFT JOIN users ON resources.user_id = users.id
-          LEFT JOIN resource_likes ON resource_id = resources.id
-          GROUP BY resources.id, users.username, users.avatar
-          ORDER BY resources.created_at DESC`;
+  const queryString = `SELECT resources.*, users.username, users.avatar,
+                      COALESCE(comments.t_comments, 0) AS t_comments,
+                      COALESCE(likes.t_likes, 0) AS t_likes
+                      FROM resources
+                      LEFT JOIN users ON resources.user_id = users.id
+                      LEFT JOIN (
+                        SELECT resource_id, COUNT(*) AS t_comments
+                          FROM resource_comments
+                          GROUP BY resource_id
+                        ) AS comments 
+                        ON resources.id = comments.resource_id
+                      LEFT JOIN (
+                        SELECT resource_id, COUNT(*) AS t_likes
+                          FROM resource_likes
+                          GROUP BY resource_id
+                        ) AS likes
+                        ON resources.id = likes.resource_id`;
+  
   return db.query(queryString)
     .then(data => {
-      // console.log("getallresource from db :", data.rows);
       return data.rows;
     })
     .catch(error => {
@@ -34,13 +44,24 @@ const getAllResource = () => {
 };
 
 const getResourceByUserId = function(userId) {
-  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes,users.username, users.avatar 
-       FROM resources 
-       LEFT JOIN users ON resources.user_id = users.id
-       LEFT JOIN resource_likes ON resource_id = resources.id
-       WHERE resources.user_id = $1
-       GROUP BY resources.id, users.username, users.avatar
-       ORDER BY resources.created_at DESC`;
+  const queryString = `SELECT resources.*, users.username, users.avatar,
+                      COALESCE(comments.t_comments, 0) AS t_comments,
+                      COALESCE(likes.t_likes, 0) AS t_likes
+                      FROM resources
+                      LEFT JOIN users ON resources.user_id = users.id
+                      LEFT JOIN (
+                        SELECT resource_id, COUNT(*) AS t_comments
+                        FROM resource_comments
+                        GROUP BY resource_id
+                        ) AS comments
+                      ON resources.id = comments.resource_id
+                      LEFT JOIN (
+                        SELECT resource_id, COUNT(*) AS t_likes
+                        FROM resource_likes
+                        GROUP BY resource_id
+                        ) AS likes
+                      ON resources.id = likes.resource_id
+                      WHERE resources.user_id = $1`;
   return db.query(queryString, [userId])
     .then(data => {
       return data.rows;
@@ -66,7 +87,7 @@ const getResourceById = function(id) {
   const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes, users.username, users.avatar 
         FROM resources 
         LEFT JOIN users ON resources.user_id = users.id 
-        LEFT JOIN resource_likes ON resource_id = resources.id
+        LEFT JOIN resource_likes ON resource_likes.resource_id = resources.id
         WHERE resources.id = $1
         GROUP BY resources.id, users.username, users.avatar`;
   return db.query(queryString, [id])
