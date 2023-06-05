@@ -6,7 +6,8 @@ const resourceQueries = require('../db/queries/resources');
 // GET route handler for /addResource
 router.post('/', (req, res) => {
   const resource = req.body;
-  resourceQueries.addResource(resource)
+  const userId = req.session.user_id;
+  resourceQueries.addResource(resource,userId)
     .then((resource) => {
       if (!resource) {
         return res.send({ error: "error" });
