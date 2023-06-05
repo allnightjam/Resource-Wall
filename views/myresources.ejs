@@ -64,7 +64,7 @@
             <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[id].id%>" onclick="likesSubmitForm('<%= resources[id].id%>')"></i><span><%= resources[id].t_likes%></span></div>
             </form>
             <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%= resources[id].t_comments%></span></div>
-            <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
+            <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span><%= resources[id].avg_rating%></span></div>
           </div>
         </div>
       </div>
