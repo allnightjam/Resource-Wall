@@ -77,8 +77,8 @@
         <div class="resource-item-footer">
           <div class="resource-item-user">
             <div class="resource-item-user-info">
-              <img class="resource-user-avatar" src="https://randomuser.me/api/portraits/women/79.jpg">
-              <span class="resource-user-name">Alex</span>
+              <img class="resource-user-avatar" src="<%= resources[id].avatar%>">
+              <span class="resource-user-name"><%= resources[id].username%></span>
             </div>
             <div class="resource-created"><%= resources[id].created_at%></div>
           </div>
