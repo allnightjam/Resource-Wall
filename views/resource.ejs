@@ -58,14 +58,14 @@
                 <img class="resource-user-avatar" src="<%= resources[0].avatar%>">
                 <span class="resource-user-name"><%= resources[0].username%></span>
               </div>
-              <div class="resource-created"><%= resources[0].created_at%></div>
+              <div class="resource-created"><%= resources[0].created_at.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></div>
             </div>
             <div class="resource-item-info">
               <form method="POST" action="/addlikes/<%= resources[0].id%>" id="add-likes-form-<%= resources[0].id %>">
                 <input type="hidden" name="resource-id" value="<%= resources[0].id%>">
               <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[0].id%>" onclick="likesSubmitForm('<%= resources[0].id%>')"></i><span><%= resources[0].t_likes%></span></div>
               </form>
-              <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
+              <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%=totalComments[0].total_comments%></span></div>
               <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
             </div>
             <div class="resource-desc">
@@ -74,46 +74,25 @@
 
           </div>
           <div class="resource-comments">
+            <% for(let i in comments) {%>
             <article>
               <div class="resource-comments-user-info">
                 <div class="resource-comments-user-info-left">
-                  <img class="resource-comments-user-avatar" src="<%= resources[0].avatar%>">
-                  <span class="resource-comments-username"><%= resources[0].username%></span>
+                  <img class="resource-comments-user-avatar" src="<%= comments[i].avatar%>">
+                  <span class="resource-comments-username"><%= comments[i].username%></span>
                 </div>
-                <div class="resource-created"><%= resources[0].created_at%></div>
+                <div class="resource-created"><%= comments[i].created_at.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></div>
               </div>
               <div class="resource-comment-item">
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor impedit, obcaecati recusandae molestias, molestiae libero ullam quidem mollitia exercitationem possimus cum consequuntur quas amet ex quis assumenda ratione beatae architecto.</p>
+                <p><%= comments[i].comment%></p>
               </div>
             </article>
-            <article>
-              <div class="resource-comments-user-info">
-                <div class="resource-comments-user-info-left">
-                  <img class="resource-comments-user-avatar" src="<%= resources[0].avatar%>">
-                  <span class="resource-comments-username"><%= resources[0].username%></span>
-                </div>
-                <div class="resource-created"><%= resources[0].created_at%></div>
-              </div>
-              <div class="resource-comment-item">
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor impedit, obcaecati recusandae molestias, molestiae libero ullam quidem mollitia exercitationem possimus cum consequuntur quas amet ex quis assumenda ratione beatae architecto.</p>
-              </div>
-            </article>
-            <article>
-              <div class="resource-comments-user-info">
-                <div class="resource-comments-user-info-left">
-                  <img class="resource-comments-user-avatar" src="<%= resources[0].avatar%>">
-                  <span class="resource-comments-username"><%= resources[0].username%></span>
-                </div>
-                <div class="resource-created"><%= resources[0].created_at%></div>
-              </div>
-              <div class="resource-comment-item">
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor impedit, obcaecati recusandae molestias, molestiae libero ullam quidem mollitia exercitationem possimus cum consequuntur quas amet ex quis assumenda ratione beatae architecto.</p>
-              </div>
-            </article>
+            <%}%>
           </div>
           <div class="resource-add-comment">
             <form method="POST" action="/addcomments" id="comments-form">
               <textarea class="resource-comments" rows="8" name="comments" placeholder="ADD SOMETHING"></textarea>
+              <input type="hidden" name="resource-id" value="<%= resources[0].id%>">
               <button type="submit" class="add-btn">ADD COMMENT</button>
             </form>
           </div>
