@@ -15,6 +15,8 @@
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,6 +53,7 @@
     </nav>
   </header>
   <main>
+    <div class="timeago" datetime="2016-06-30 09:20:00"></div>
     <section class="category-search-section">
       <div class="category-part">
         <span class="category-title">Educational</span>
@@ -68,11 +71,13 @@
     </section>
     <div class="resource-container">
       <% for (let id in resources) { %>
-     <a class="resource-item-link" href="/resource/<%= resources[id].id %>">
+     
       <div class="resource-item">
+        <a class="resource-item-link" href="/resource/<%= resources[id].id %>">
         <img class="resource-item-img" src="<%= resources[id].photo_url%>">
         <h3 class="resource-title"><%= resources[id].title%></h3>
         <p class="resource-desc"><%= resources[id].description%></p>
+        </a>
         <div class="resource-item-footer">
           <div class="resource-item-user">
             <div class="resource-item-user-info">
@@ -80,16 +85,19 @@
               <%= resources[id].avatar%>">
               <span class="resource-user-name"><%= resources[id].username%></span>
             </div>
-            <div class="resource-created"><%= resources[id].created_at%></div>
+            <div class="resource-created"><%= resources[id].created_at.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></div>
           </div>
           <div class="resource-item-info">
-            <div class="resource-item-heart"><i class="fa-solid fa-heart"></i><span>2</span></div>
+            <form method="POST" action="/addlikes" id="add-likes-form-<%= resources[id].id %>">
+              <input type="hidden" name="resource-id" value="<%= resources[id].id%>">
+            <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[id].id%>" onclick="likesSubmitForm('<%= resources[id].id%>')"></i><span><%= resources[id].t_likes%></span></div>
+            </form>
             <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
             <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
           </div>
         </div>
       </div>
-    </a>
+    
       <%}%>
     </div>
   </main>

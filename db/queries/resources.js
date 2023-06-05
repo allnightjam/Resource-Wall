@@ -16,9 +16,15 @@ const addResource = function(resource,userId) {
 };
 
 const getAllResource = () => {
-  const queryString = `SELECT resources.*, users.username, users.avatar FROM resources LEFT JOIN users ON resources.user_id = users.id`;
+  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes,users.username, users.avatar 
+          FROM resources 
+          LEFT JOIN users ON resources.user_id = users.id
+          LEFT JOIN resource_likes ON resource_id = resources.id
+          GROUP BY resources.id, users.username, users.avatar
+          ORDER BY resources.created_at DESC`;
   return db.query(queryString)
     .then(data => {
+      // console.log("getallresource from db :", data.rows);
       return data.rows;
     })
     .catch(error => {
@@ -28,7 +34,13 @@ const getAllResource = () => {
 };
 
 const getResourceByUserId = function(userId) {
-  const queryString = `SELECT resources.*, users.username, users.avatar FROM resources LEFT JOIN users ON resources.user_id = users.id where user_id = $1`;
+  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes,users.username, users.avatar 
+       FROM resources 
+       LEFT JOIN users ON resources.user_id = users.id
+       LEFT JOIN resource_likes ON resource_id = resources.id
+       WHERE resources.user_id = $1
+       GROUP BY resources.id, users.username, users.avatar
+       ORDER BY resources.created_at DESC`;
   return db.query(queryString, [userId])
     .then(data => {
       return data.rows;
@@ -51,7 +63,12 @@ const getMaxIDFromResource = () => {
 };
 
 const getResourceById = function(id) {
-  const queryString = `SELECT resources.*, users.username, users.avatar FROM resources LEFT JOIN users ON resources.user_id = users.id where resources.id = $1`;
+  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes, users.username, users.avatar 
+        FROM resources 
+        LEFT JOIN users ON resources.user_id = users.id 
+        LEFT JOIN resource_likes ON resource_id = resources.id
+        WHERE resources.id = $1
+        GROUP BY resources.id, users.username, users.avatar`;
   return db.query(queryString, [id])
     .then(data => {
       return data.rows;
