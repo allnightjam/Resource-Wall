@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REGISTER</title>
+  <link rel="stylesheet" href="/styles/register.css" />
+</head>
+<body>
+  <div class="login">
+    <form method="GET" action="/login">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <div class="main-register">
+    <h1 class="register-title">REGISTER</h1>
+    <form method = "POST" action="/register">
+      <div class="avatar">
+        <input type="avatar-url" name="avatar-url">
+        <label>Avatar Url</label>
+      </div>
+      <div class="name">
+        <input type="name" name="name">
+        <label>Name</label>
+      </div>
+      <div class="username">
+        <input type="username" name="username">
+        <label>Username</label>
+      </div>
+      <div class="email">
+        <input type="email" name="email">
+        <label>Email</label>
+      </div>
+      <div class="password">
+        <input type="password" name="password">
+        <label>Password</label>
+      </div>
+      <div class="register-submit">
+        <button type="submit"> Register </button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
