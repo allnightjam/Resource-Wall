@@ -60,6 +60,7 @@ app.use('/addResource',resourceRoutes);
 app.use('/',getResourceRoutes);
 app.use('/myresources', getResourceRoutes);
 app.use('/userprofile', usersRoutes);
+app.use('/updateProfile', usersRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
