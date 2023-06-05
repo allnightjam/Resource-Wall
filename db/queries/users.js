@@ -47,4 +47,16 @@ const getUsersById = (id) => {
     });
 };
 
-module.exports = { getUsers, getMaxIDFromUsers, addNewUser, searchUserByEmail,getUsersById };
+const updateProfile = (data,userId)=> {
+  return db.query(`UPDATE users SET avatar = $1, profile_description = $2 where id = $3 RETURNING *`,[data.avatar_url, data.description, userId])
+    .then(res=>{
+      console.log(res.rows);
+      return res.rows;
+    })
+    .catch(err=>{
+      console.log('UPDATE user qurey error:', err.stack);
+    });
+
+};
+
+module.exports = { getUsers, getMaxIDFromUsers, addNewUser, searchUserByEmail,getUsersById,updateProfile};
