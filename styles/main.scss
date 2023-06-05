@@ -187,7 +187,7 @@ main{
       }
     }
 
-    & .search-text{
+    & #search-text{
       padding: 0 20px;
       height: 36px;
       width: 300px;
@@ -204,4 +204,6 @@ main{
 
 }
 
-
+.hidden {
+  display:none;
+}
