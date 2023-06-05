@@ -47,6 +47,7 @@ const usersRoutes = require('./routes/users');
 const categoriesRoutes = require('./routes/categories');
 const resourceRoutes = require('./routes/resource');
 const getResourceRoutes = require('./routes/getResources');
+const likesRoutes = require('./routes/resourceLikes');
 
 
 // Mount all resource routes
@@ -61,6 +62,8 @@ app.use('/',getResourceRoutes);
 app.use('/myresources', getResourceRoutes);
 app.use('/userprofile', usersRoutes);
 app.use('/updateProfile', usersRoutes);
+app.use('/addlikes',likesRoutes);
+app.use('/addlikesOnMyresource',likesRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -188,41 +191,41 @@ app.post("/login", (req,res) => {
 
 });
 
-app.post("/addResource", (req, res)=>{
-  const { title, description, resource_url, photo_url, category_id } = req.body;
-  console.log(`----ADD RESOURCE---${title}--${description}---${resource_url}---${photo_url}---${category_id}----`);
+// app.post("/addResource", (req, res)=>{
+//   const { title, description, resource_url, photo_url, category_id } = req.body;
+//   console.log(`----ADD RESOURCE---${title}--${description}---${resource_url}---${photo_url}---${category_id}----`);
 
-  getMaxIDFromResource().then(id=>{
+//   getMaxIDFromResource().then(id=>{
 
-    let resourceId = 1;
-    if(id){
-      resourceId = id+1;
-    }
+//     let resourceId = 1;
+//     if(id){
+//       resourceId = id+1;
+//     }
 
-    const newResource = {
-      id: resourceId,
-      title,
-      description,
-      resource_url,
-      photo_url,
-      category_id,
-      user_id: req.session.user_id
-    }
+//     const newResource = {
+//       id: resourceId,
+//       title,
+//       description,
+//       resource_url,
+//       photo_url,
+//       category_id,
+//       user_id: req.session.user_id
+//     }
 
-    console.log(newResource);
+//     console.log(newResource);
 
-    addResource(newResource).then(result=>{
-        console.log(result);
+//     addResource(newResource).then(result=>{
+//         console.log(result);
 
-        return res.redirect('/');
-    }).catch(err=>{
-      console.log(err);
-    })
+//         return res.redirect('/');
+//     }).catch(err=>{
+//       console.log(err);
+//     })
 
-  })
+//   })
 
 
-})
+// })
 
 app.post("/logout", (req,res) => {
   req.session = null;
