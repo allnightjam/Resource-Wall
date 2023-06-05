@@ -177,6 +177,8 @@ main{
       font-family: Geologica;
       font-weight: 600;
       font-size: 24px;
+      background-color: transparent;
+      border: none;
       color: $resource-blue;
 
       &:hover{
