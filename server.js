@@ -49,6 +49,7 @@ const resourceRoutes = require('./routes/resource');
 const getResourceRoutes = require('./routes/getResources');
 const likesRoutes = require('./routes/resourceLikes');
 const commentRoutes = require('./routes/comments');
+const ratingRoutes = require('./routes/rating');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -65,6 +66,7 @@ app.use('/updateProfile', usersRoutes);
 app.use('/addlikes',likesRoutes);
 app.use('/addlikesOnMyresource',likesRoutes);
 app.use('/addcomments',commentRoutes);
+app.use('/rating', ratingRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
