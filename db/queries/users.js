@@ -32,6 +32,7 @@ const addNewUser = (user) =>{
 const searchUserByEmail = (email) =>{
   return db.query(`SELECT * FROM USERS WHERE EMAIL = $1`, [`${email}`])
     .then(res=>{
+      console.log(res);
       return res.rows;
     })
     .catch(err=>{
