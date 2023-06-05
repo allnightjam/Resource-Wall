@@ -5,7 +5,7 @@ const addResource = function(resource,userId) {
   const queryString = `INSERT INTO resources(title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, $6 ) RETURNING *`;
   return db.query(queryString, [resource['title'], resource['resource_url'], resource['photo_url'], resource['description'], resource['category_id'], userId])
     .then(data => {
-      console.log(JSON.stringify(data.rows));
+      // console.log(JSON.stringify(data.rows));
       return data.rows;
     })
     .catch(error => {
@@ -17,7 +17,8 @@ const addResource = function(resource,userId) {
 const getAllResource = () => {
   const queryString = `SELECT resources.*, users.username, users.avatar,
                       COALESCE(comments.t_comments, 0) AS t_comments,
-                      COALESCE(likes.t_likes, 0) AS t_likes
+                      COALESCE(likes.t_likes, 0) AS t_likes,
+                      COALESCE(avgRating.avg_rating, 0) AS avg_rating
                       FROM resources
                       LEFT JOIN users ON resources.user_id = users.id
                       LEFT JOIN (
@@ -31,7 +32,13 @@ const getAllResource = () => {
                           FROM resource_likes
                           GROUP BY resource_id
                         ) AS likes
-                        ON resources.id = likes.resource_id`;
+                        ON resources.id = likes.resource_id
+                      LEFT JOIN (
+                          SELECT resource_id, ROUND(AVG(rating), 2) AS avg_rating FROM resource_ratings
+                          GROUP BY resource_id
+                          ) AS avgRating
+                      ON resources.id = avgRating.resource_id
+                      ORDER BY resources.created_at DESC`;
   
   return db.query(queryString)
     .then(data => {
@@ -46,7 +53,8 @@ const getAllResource = () => {
 const getResourceByUserId = function(userId) {
   const queryString = `SELECT resources.*, users.username, users.avatar,
                       COALESCE(comments.t_comments, 0) AS t_comments,
-                      COALESCE(likes.t_likes, 0) AS t_likes
+                      COALESCE(likes.t_likes, 0) AS t_likes,
+                      COALESCE(avgRating.avg_rating, 0) AS avg_rating
                       FROM resources
                       LEFT JOIN users ON resources.user_id = users.id
                       LEFT JOIN (
@@ -61,7 +69,13 @@ const getResourceByUserId = function(userId) {
                         GROUP BY resource_id
                         ) AS likes
                       ON resources.id = likes.resource_id
-                      WHERE resources.user_id = $1`;
+                      LEFT JOIN (
+                        SELECT resource_id, ROUND(AVG(rating), 2) AS avg_rating FROM resource_ratings
+                        GROUP BY resource_id
+                        ) AS avgRating
+                      ON resources.id = avgRating.resource_id
+                      WHERE resources.user_id = $1
+                      ORDER BY resources.created_at DESC`;
   return db.query(queryString, [userId])
     .then(data => {
       return data.rows;
