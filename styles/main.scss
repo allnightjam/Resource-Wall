@@ -65,6 +65,7 @@ main{
 
   .resource-title{
     font-family: Courgette;
+    word-spacing: 2px;
   }
 
   .resource-desc{
@@ -115,8 +116,14 @@ main{
     display: flex;
     gap: 6px;
 
+    transition: all 0.2s;
+
     .fa-heart{
       color: $resource-item-heart;
+
+      &:hover{
+        transform: scale(1.1);
+      }
     }
 
     .fa-comment{
