@@ -65,7 +65,8 @@
               <form method="POST" action="/addlikes/<%= resources[0].id%>" id="add-likes-form-<%= resources[0].id %>">
                 <input type="hidden" name="resource-id" value="<%= resources[0].id%>">
                 <div class="resource-item-heart">
-                  <i class="fa-solid fa-heart" id="like-icon-<%= resources[0].id%>" onclick="likesSubmitForm('<%= resources[0].id%>')"></i>
+                  <!-- <i class="fa-solid fa-heart" id="like-icon-<%= resources[0].id%>" onclick="likesSubmitForm('<%= resources[0].id%>')"></i> -->
+                  <i class="fa-solid fa-heart" id="like-icon-<%= resources[0].id%>"></i>
                   <span><%= resources[0].t_likes%></span>
                 </div>
               </form>
