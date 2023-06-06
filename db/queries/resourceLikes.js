@@ -21,7 +21,8 @@ const updateLikes = function(liked,resourceId,userId) {
   
   return db.query(queryString, [liked,resourceId, userId])
     .then(data => {
-      return data.rows;
+      console.log("update likes table ", data.rows[0]);
+      return data.rows[0];
     })
     .catch(error => {
       console.error("Error update resource_likes in queries:", error);
@@ -46,11 +47,12 @@ const checkLikes = function(resourceId,userId) {
 const totalLikesByResourceId = function(resourceId) {
   const queryString = `SELECT resource_id, count(resource_likes.id) as t_likes 
                       FROM  resource_likes
-                      WHERE resource_id = $1
+                      WHERE resource_id = $1 and liked = true
                       GROUP BY resource_id`;
   
   return db.query(queryString, [resourceId])
     .then(data => {
+      console.log("total likes from db for resourceid :",data.rows[0]);
       return data.rows[0];
     })
     .catch(error => {
