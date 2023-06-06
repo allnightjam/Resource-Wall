@@ -90,6 +90,7 @@
           <div class="resource-item-info">
             <form method="POST" action="/addlikes" id="add-likes-form-<%= resources[id].id %>">
               <input type="hidden" name="resource-id" value="<%= resources[id].id%>" />
+              <input type="hidden" id="resource-liked-<%= resources[id].id%>" value="<%= resources[id].liked_rs_by%>" />
               <div class="resource-item-heart">
                 <i class="fa-regular fa-heart" id="like-icon-<%= resources[id].id%>">
                 </i>
