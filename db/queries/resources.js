@@ -49,7 +49,7 @@ const getAllResource = (userId) => {
   
   return db.query(queryString, [userId])
     .then(data => {
-      console.log("all resources from database ------here --", data.rows);
+      // console.log("all resources from database ------here --", data.rows);
       return data.rows;
     })
     .catch(error => {
