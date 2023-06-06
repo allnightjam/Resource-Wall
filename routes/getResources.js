@@ -79,6 +79,7 @@ router.get('/resource/:id', (req, res) => {
       if (!totalComments.total_comments) {
         totalComments = {'resource_id': id, 'total_comments': '0' };
       }
+      console.log("detail page total_likes :", totalLikes);
       res.render('resource', { resources, totalLikes, isLiked, comments, totalComments, avgRating });
     })
     .catch((error) => {
