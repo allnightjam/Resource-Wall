@@ -5,9 +5,18 @@ const likesQueries = require('../db/queries/resourceLikes');
 
 router.post('/', (req, res) => {
   const likes = req.body;
+  console.log("what likes is ????????????????", likes);
   const resourceId = likes['resource-id'];
   const userId = req.session.user_id;
-  likesQueries.addLikes(resourceId,userId)
+  likesQueries.checkLikes(resourceId,userId)
+    .then((selectLikes) => {
+      if (!selectLikes) {
+        console.log("???????? selectlikes ?????????", selectLikes);
+        return likesQueries.addLikes(resourceId, userId);
+      } else {
+        return likesQueries.updateLikes(resourceId, userId);
+      }
+    })
     .then((likes) => {
       if (!likes) {
         return res.send({ error: "error" });
@@ -16,7 +25,7 @@ router.post('/', (req, res) => {
     })
     .catch((error) => {
       console.error("Error add resource:", error);
-      res.status(500).json({ error: "Failed to add likes" });
+      res.status(500).json({ error: "Failed to add/update likes" });
     });
 });
 
@@ -51,7 +60,7 @@ router.post('/addlikesOnMyresource', (req, res) => {
     })
     .catch((error) => {
       console.error("Error add resource:", error);
-      res.status(500).json({ error: "Failed to add likes" });
+      res.status(500).json({ error: "Failed to add likes on myresource" });
     });
 });
 
