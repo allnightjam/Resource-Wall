@@ -35,7 +35,7 @@ $(function() {
     }
 
     $($heartNum).text(val);
-
+console.log("on main page isliked is ", isLiked);
     $.post('/addlikes', { 'resource-id': resourceID, 'isLiked': isLiked })
       .done(() => {
         console.log("click heart received!!!");
