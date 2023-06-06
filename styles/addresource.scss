@@ -6,7 +6,12 @@ $resource-yellow: #ffd43b;
   justify-content: center;
   gap: 15px;
   margin-top: 40px;
+  height: 475px;
   font-family: Geologica;
+  font-weight: 600;
+  box-shadow: 5px 6px #86badf;
+  background-color: #a5d8fd;
+  text-align-last: center;
   input,
   textarea,
   .resource-category{
@@ -16,10 +21,17 @@ $resource-yellow: #ffd43b;
       position: relative;
       left: 0;
       outline: none;
-      border: 1px solid #cdcdcd;
-      border-color: rgba(0, 0, 0, .15);
+      border: 2px solid #cdcdcd;
+      border-bottom-width: 5px;
+      transition: all .5s ease;
       background-color: white;
       font-size: 16px;
+      border-radius: 8px;
+  }
+  input:hover,
+  textarea:hover,
+  .resource-category:hover{
+    border-bottom-color: #ffd43b;
   }
 
   input,
@@ -38,6 +50,7 @@ $resource-yellow: #ffd43b;
 
   .resource-add-btn{
     margin-top: 20px;
+    margin-bottom: 10px;
     border: none;
     height: 45px;
     padding: 12px;

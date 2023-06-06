@@ -1,9 +1,10 @@
 const searchInput = document.getElementById('search-text');
-const searchResults = document.querySelectorAll(".resource-container");
+const searchResults = document.querySelectorAll(".resource-item");
 
 searchInput.addEventListener("input", function(event) {
   const searchTerm = event.target.value.toLowerCase();
   searchResults.forEach(function(resource) {
+    console.log("resource:", resource);
     const resourceText = resource.innerText.toLowerCase();
     if (resourceText.includes(searchTerm)) {
       resource.classList.remove("hidden");

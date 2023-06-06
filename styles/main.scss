@@ -125,7 +125,9 @@ main{
   }
 
   & .resource-created{
+    display:flex;
     color: $created-time-color;
+    text-align: right;
   }
 }
 
@@ -146,9 +148,11 @@ main{
     }
 
     .fa-heart{
-      &:hover{
+      color: $resource-item-heart;
+    }
+
+    & .fa-heart:hover{
         transform: scale(1.1);
-      }
     }
 
     .fa-comment{
@@ -176,7 +180,7 @@ main{
 
     & .category-active{
       color: $resource-yellow;
-      font-size: 34px;
+      font-size: 30px;
     }
 
     span{
@@ -198,7 +202,7 @@ main{
     & .search-btn{
       font-family: cursive;
       font-weight: 700;
-      font-size: 20px;
+      font-size: 22px;
       background-color: transparent;
       border: none;
       color: $resource-blue;
@@ -220,6 +224,7 @@ main{
       border-color: rgba(0, 0, 0, .15);
       background-color: white;
       font-size: 16px;
+      font-weight: 700;
       font-family: Geologica;
       border-radius: 20px;
     }

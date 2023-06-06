@@ -1,17 +1,51 @@
 $resource-item-heart: #f03e3e;
 $resource-yellow: #ffd43b;
-.detail-container{
-    max-width: 800px;
+$resource-blue: #339af0;
 
+main {
+  padding-top: 0;
+  border-left: 100px #339af0;
+  border-right: 100px #339af0;
+}
+.resource-nav h1 {
+  font-family: Finger Paint;
+  font-weight: 600;
+}
+
+.detail-container {
+    max-width: 800px;
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    align-items: center;
     gap: 20px;
     margin: 0 auto;
 
+  & .resource-title {
+    color: $resource-blue;
+    transition: all .5s ease;
+  }
+
+  & .resource-title:hover {
+    color: $resource-yellow;
+  }
+
+  & .resource-item-img {
+    transition: all .5s ease;
+  }
+  & .resource-item-img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: .5px .5px 3px 3px $resource-yellow;
+  }
+  & img {
+    width: 70%;
+    height: auto;
+  }
+
   & .resource-info{
+    width: 900px;
     margin-bottom: 20px;
-    h1{
+    h1 {
       font-family: Secular One;
     }
     & > * {
@@ -46,7 +80,7 @@ $resource-yellow: #ffd43b;
       justify-content: space-between;
       gap: 10px;
       width: 100%;
-      font-family: Finger Paint;
+      font-family: Geologica;
 
       & .resource-user-info-left{
         display: flex;
@@ -108,6 +142,7 @@ $resource-yellow: #ffd43b;
 
     article{
       margin-bottom: 40px;
+      width: 900px;
       & > * {
         margin-bottom: 15px;
       }
@@ -123,7 +158,7 @@ $resource-yellow: #ffd43b;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      font-family: Courgette;
+      font-family: Geologica;
 
       & .resource-comments-user-info-left{
         display: flex;
@@ -147,7 +182,9 @@ $resource-yellow: #ffd43b;
       flex-direction: column;
       gap: 20px;
       align-items: center;
-
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Geologica;
       & .resource-comments{
         height: auto;
         width: 800px;
@@ -157,10 +194,17 @@ $resource-yellow: #ffd43b;
         border: 2px solid #cdcdcd;
         border-color: rgba(0, 0, 0, .15);
         background-color: white;
-        font-size: 16px;
+        font-size: 20px;
+        text-align-last: center;
         padding: 8px;
+        border: 2px solid #cdcdcd;
+        border-bottom-width: 5px;
+        border-radius: 8px;
+        transition: all .5s ease;
       }
-
+      & .resource-comments:hover {
+        border-bottom-color: #ffd43b;
+      }
       & .add-btn{
         margin-top: 20px;
         border: none;
@@ -177,9 +221,7 @@ $resource-yellow: #ffd43b;
           cursor: pointer;
           transform: scale(1.05);
         }
-
     }
-
   }
 }
 }
