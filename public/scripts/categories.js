@@ -13,9 +13,34 @@ $(() => {
         // Append the option to the select element
         select.append(option);
       });
-      
+
     })
     .fail(function(error) {
       console.error(error);
     });
 });
+
+
+/////////////
+// window.addEventListener('DOMContentLoaded', (event) => {
+//   const categoryList = document.getElementById("category-list");
+//   const articles = document.getElementById('articles').getElementsByTagName('article');
+
+//   categoryList.addEventListener('click', (event) => {
+//     if (event.target.nodeName === 'LI') {
+//       const selectedCategory = event.target.getAttribute("data-category");
+//       Array.from(categoryList.children).forEach((item) => {
+//         item.classList.remove("active");
+//       });
+//       Array.from(articles).forEach((article) => {
+//         const articleCategory = article.getAttribute("data-category");
+//         if (selectedCategory === "all" || selectedCategory === articleCategory) {
+//           article.style.display = "block";
+//         } else {
+//           article.style.display = "none";
+//         }
+//       });
+//       event.target.classList.add("active");
+//     }
+//   });
+// });
