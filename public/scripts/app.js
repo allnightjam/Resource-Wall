@@ -2,7 +2,7 @@ $(function() {
   //Client facing scripts here
   $('.fa-heart').click(function() {
     //var val = parseInt($(this).text(), 10);
-    console.log("click heart on main page");
+    console.log("click heart");
 
     const $curHeartIcon = $(this);
 
@@ -15,7 +15,7 @@ $(function() {
     let isLiked = false;
     let resourceID = $curResourceInput.val();
     console.log(Number(val));
-    console.log(Number(resourceID));
+    console.log("resourceID",Number(resourceID));
     // console.log($curResourceLikedInput.val());
 
 
@@ -35,16 +35,43 @@ $(function() {
     }
 
     $($heartNum).text(val);
-console.log("on main page isliked is ", isLiked);
-    $.post('/addlikes', { 'resource-id': resourceID, 'isLiked': isLiked })
-      .done(() => {
-        console.log("click heart received!!!");
-        // Handle the success response from the server
-        console.log('add likes success');
-      })
-      .fail(function(error) {
-        console.log('Error:', error);
-      });
+    console.log("like button was clicked ", isLiked);
+    if ($(this).hasClass('main-page')) {
+      $.post('/addlikes', { 'resource-id': resourceID, 'isLiked': isLiked })
+        .done(() => {
+          console.log("click heart received from main page!!!");
+          // Handle the success response from the server
+          console.log('add likes success');
+        })
+        .fail(function (error) {
+          console.log('Error:', error);
+        });
+    }
+    
+    if ($(this).hasClass('detail-page')) {
+      console.log("detail page");
+      $.post(`/addlikes/${resourceID}`, { 'resource-id': resourceID, 'isLiked': isLiked })
+        .done(() => {
+          console.log("click heart received from detail page!!!");
+          // Handle the success response from the server
+          console.log('add likes success in detail page');
+        })
+        .fail(function (error) {
+          console.log('Error:', error);
+        });
+    }
+    
+    if ($(this).hasClass('my-page')) {
+      console.log("my page");
+      $.post('/addlikesOnMyresource', { 'resource-id': resourceID, 'isLiked': isLiked })
+        .done(() => {
+          console.log("click heart received from my page!!!");
+          // Handle the success response from the server
+          console.log('add likes success in my page');
+        })
+        .fail(function (error) {
+          console.log('Error:', error);
+        });
+    }
   });
-
 });

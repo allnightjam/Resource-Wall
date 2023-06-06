@@ -60,9 +60,15 @@
           </div>
           <div class="resource-item-info">
             <form method="POST" action="/addlikesOnMyresource" id="add-likes-form-<%= resources[id].id %>">
-              <input type="hidden" name="resource-id" value="<%= resources[id].id%>">
-              <input type="hidden" id="resource-liked-<%= resources[id].id%>" value="<%= resources[id].liked_rs_by%>" />
-            <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[id].id%>" onclick="likesSubmitForm('<%= resources[id].id%>')"></i><span><%= resources[id].t_likes%></span></div>
+              <input type="hidden" id="hidden-resource-id" name="resource-id" value="<%= resources[id].id%>" />
+              <!-- <input type="hidden" id="resource-liked-<%= resources[id].id%>" value="<%= resources[id].liked_rs_by%>" /> -->
+            <!-- <div class="resource-item-heart"><i class="fa-solid fa-heart my-page" id="like-icon-<%= resources[id].id%>" onclick="likesSubmitForm('<%= resources[id].id%>')"></i><span><%= resources[id].t_likes%></span></div> -->
+            <div class="resource-item-heart">
+              <i class="fa-heart my-page <%= resources[id].liked_rs_by == true ? 'is-liked fa-solid' : 'fa-regular' %> " id="like-icon-<%= resources[id].id%>">
+              </i>
+              <span><%= resources[id].t_likes%></span>
+            </div>
+
             </form>
             <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%= resources[id].t_comments%></span></div>
             <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span><%= resources[id].avg_rating%></span></div>
@@ -89,9 +95,16 @@
             </div>
             <div class="resource-item-info">
               <form method="POST" action="/addlikesOnMyresource" id="add-likes-form-<%= resourcesLiked[id].id %>">
-                <input type="hidden" name="resource-id" value="<%= resourcesLiked[id].id%>">
-                <input type="hidden" id="resource-liked-<%= resourcesLiked[id].id%>" value="<%= resourcesLiked[id].liked_rs_by%>" />
-              <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resourcesLiked[id].id%>" onclick="likesSubmitForm('<%= resourcesLiked[id].id%>')"></i><span><%= resourcesLiked[id].t_likes%></span></div>
+              <input type="hidden" id="hidden-resource-id" name="resource-id" value="<%= resourcesLiked[id].id%>" />
+                <!-- <input type="hidden" id="resource-liked-<%= resourcesLiked[id].id%>" value="<%= resourcesLiked[id].liked_rs_by%>" /> -->
+              <!-- <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resourcesLiked[id].id%>" onclick="likesSubmitForm('<%= resourcesLiked[id].id%>')"></i><span><%= resourcesLiked[id].t_likes%></span></div> -->
+              <div class="resource-item-heart">
+                <!-- <i class="fa-heart my-page <%= resourcesLiked[id].liked_rs_by == true ? 'is-liked fa-solid' : 'fa-regular' %> " id="like-icon-<%= resourcesLiked[id].id%>">
+                </i> -->
+                <i class="fa-heart my-page <%= liked_rs_by == true ? 'is-liked fa-solid' : 'fa-regular' %> " id="like-icon-<%= resourcesLiked[id].id%>">
+                </i>
+                <span><%= resourcesLiked[id].t_likes%></span>
+              </div>
               </form>
               <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%= resourcesLiked[id].t_comments%></span></div>
               <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span><%= resourcesLiked[id].avg_rating%></span></div>

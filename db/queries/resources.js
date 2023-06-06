@@ -92,6 +92,7 @@ const getResourceByUserId = function(userId) {
                       ORDER BY resources.created_at DESC`;
   return db.query(queryString, [userId])
     .then(data => {
+      console.log("get resources by user : ", data.rows);
       return data.rows;
     })
     .catch(error => {
@@ -166,6 +167,7 @@ const getResourceUserLiked = function(userId) {
                     ORDER BY resources.created_at DESC;`;
   return db.query(queryString, [userId])
     .then(data => {
+      console.log("getresource liked by user ", data.rows);
       return data.rows;
     })
     .catch(error => {

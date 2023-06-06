@@ -31,7 +31,7 @@ router.get('/myresources', (req, res) => {
     resourceQueries.getResourceUserLiked(userId)
   ])
     .then(([resources, resourcesLiked]) => {
-      res.render('myresources',{resources, resourcesLiked});
+      res.render('myresources',{resources, resourcesLiked,'liked_rs_by':true});
     })
     .catch((error) => {
       console.error("Error retrieving myresources:", error);

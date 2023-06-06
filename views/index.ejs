@@ -92,7 +92,7 @@
               <input type="hidden" id="hidden-resource-id" name="resource-id" value="<%= resources[id].id%>" />
               <!-- <input type="hidden" id="hidden-resource-liked" id="resource-liked-<%= resources[id].id%>" value="<%= resources[id].liked_rs_by%>" /> -->
               <div class="resource-item-heart">
-                <i class="fa-heart <%= resources[id].liked_rs_by == true ? 'is-liked fa-solid' : 'fa-regular' %> " id="like-icon-<%= resources[id].id%>">
+                <i class="fa-heart main-page <%= resources[id].liked_rs_by == true ? 'is-liked fa-solid' : 'fa-regular' %> " id="like-icon-<%= resources[id].id%>">
                 </i>
                 <span><%= resources[id].t_likes%></span>
               </div>
