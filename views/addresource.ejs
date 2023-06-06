@@ -45,14 +45,16 @@
   </header>
   <main>
     <form method="POST" action="/addResource" id="add-resource-form">
-      <input type="text" name="resource-url" placeholder="RESOURCE LINK" />
-      <input type="text" name="resource-title" placeholder="RESOURCE TITLE" />
-      <input type="text" name="resource-image" placeholder="IMAGE URL" />
-      <textarea name="resource-desc" placeholder="RESOURCE DESCRIPTION" rows="4"></textarea>
+      <input type="url" name="resource_url" placeholder="RESOURCE LINK" />
+      <input type="text" name="title" placeholder="RESOURCE TITLE" />
+      <input type="url" name="photo_url" placeholder="IMAGE URL" />
+      <textarea name="description" placeholder="RESOURCE DESCRIPTION" rows="4"></textarea>
 
-      <select class="resource-category" name="resource-category" id ="category-select">   
-      <option value="" disabled selected>CHOOSE CATEGORY</option>            
-
+      <select class="resource-category" name="category_id" id ="category-select">
+        <option value="" disabled selected>CHOOSE CATEGORY</option>
+        <% for(const resource of resources) { %>
+          <option value=<%= resource.id %>><%= resource.name %></option>
+        <%}%>
       </select>
       <button class="resource-add-btn" type="submit">ADD RESOURCE</button>
     </form>
