@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>RESOURCE</title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/resource.css" />
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -32,7 +32,7 @@
   <header>
     <nav class="resource-nav">
       <div class="nav-left">
-        <h1>MY RESOURCES</h1>
+        <h1>RESOURCE DETAIL</h1>
       </div>
       <div class="nav-right">
         <a class="user-back" onclick="history.back()">BACK</a>
@@ -40,31 +40,6 @@
     </nav>
   </header>
   <main>
-
-    <div class="resource-container">
-      <% for (let id in resources) { %>
-      <div class="resource-item">
-        <img class="resource-item-img" src="<%= resources[id].photo_url%>">
-        <h3 class="resource-title"><%= resources[id].title%></h3>
-        <p class="resource-desc"><%= resources[id].description%></p>
-        <div class="resource-item-footer">
-          <div class="resource-item-user">
-            <div class="resource-item-user-info">
-              <img class="resource-user-avatar" src="https://randomuser.me/api/portraits/women/79.jpg">
-              <span class="resource-user-name">Alex</span>
-            </div>
-            <div class="resource-created"><%= resources[id].created_at%></div>
-          </div>
-          <div class="resource-item-info">
-            <div class="resource-item-heart"><i class="fa-solid fa-heart"></i><span>2</span></div>
-            <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
-            <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
-          </div>
-        </div>
-      </div>
-      <%}%>
-    </div>
-
 
     </main>
     </body>

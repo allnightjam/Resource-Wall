@@ -1,9 +1,10 @@
 const db = require('../connection');
 
-const addResource = function(resource) {
-
-  const queryString = `INSERT INTO resources(title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, 1 ) RETURNING *`;
-  return db.query(queryString, [resource['resource-title'], resource['resource-url'], resource['resource-image'], resource['resource-desc'], resource['resource-category']])
+const addResource = function(resource,userId) {
+  
+  const queryString = `INSERT INTO resources(title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, $6 ) RETURNING *`;
+  // return db.query(queryString, [resource['resource-title'], resource['resource-url'], resource['resource-image'], resource['resource-desc'], resource['resource-category'], userId])
+  return db.query(queryString, [resource['title'], resource['resource_url'], resource['photo_url'], resource['description'], resource['category_id'], userId])
     .then(data => {
       return data.rows;
     })
@@ -13,24 +14,40 @@ const addResource = function(resource) {
     });
 };
 
-const getMaxIDFromResource = () =>{
+const getAllResource = () => {
+  return db.query('SELECT * FROM resources')
+    .then(data => {
+      return data.rows;
+    })
+    .catch(error => {
+      console.error("Error retrieving resources in queries:", error);
+      throw error;
+    });
+};
+
+const getResourceByUserId = function(userId) {
+  const queryString = `SELECT * FROM resources where user_id = $1`;
+  return db.query(queryString, [userId])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(error => {
+      console.error("Error getResourceByUserId in queries:", error);
+      throw error;
+    });
+};
+
+const getMaxIDFromResource = () => {
   return db.query('SELECT MAX(id) FROM RESOURCES')
-  .then(data=>{
-    return data.rows[0].id;
-  })
-}
+    .then(data => {
+      console.log(`--------------max resource id in resource table------------${JSON.stringify(data)}`);
+      return data.rows[0].max;
+    })
+    .catch(err => {
+      console.log('get max resource id qurey error:', err.stack);
+    });
+};
 
-// const getAllResource = () => {
-//   console.log("inside db queries function----------------");
-//   return db.query('SELECT * FROM resources')
-//     .then(data => {
-//       console.log("resources from database *****************", data.rows);
-//       return data.rows;
-//     })
-//     .catch(error => {
-//       console.error("Error retrieving resources in queries:", error);
-//       throw error; // Throw the error to propagate it to the caller
-//     });
-// };
+module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource};
 
-module.exports = { addResource, getMaxIDFromResource };
+

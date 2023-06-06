@@ -1,9 +1,10 @@
 // load .env data into process.env
 require('dotenv').config();
 
-const { getMaxIDFromResource } = require('./db/queries/resources');
+const { getMaxIDFromResource, addResource } = require('./db/queries/resources');
 const { getMaxIDFromUsers, addNewUser } = require('./db/queries/users');
-const { getUserByEmail, authenticateUser, isLoggedIn } = require('./help')
+const { getUserByEmail, authenticateUser, isLoggedIn } = require('./help');
+const { getCategories } = require('./db/queries/category');
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -11,6 +12,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcryptjs');
+
 
 const salt = bcrypt.genSaltSync(10);
 const PORT = process.env.PORT || 8080;
@@ -21,7 +23,7 @@ app.use(cookieSession({
 }));
 
 app.set('view engine', 'ejs');
-
+app.use(express.urlencoded({ extended: true }));
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -44,6 +46,8 @@ const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
 const categoriesRoutes = require('./routes/categories');
 const resourceRoutes = require('./routes/resource');
+const getResourceRoutes = require('./routes/getResources');
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -53,6 +57,8 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/categories',categoriesRoutes);
 app.use('/addResource',resourceRoutes);
+app.use('/',getResourceRoutes);
+app.use('/myresources', getResourceRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -63,35 +69,27 @@ app.get('/', (req, res) => {
   let templateVars = {
     userId: null
   };
-  if (isLoggedIn(req.session.user_id)){
+  if (isLoggedIn(req.session.user_id)) {
 
     templateVars = {
       userId: req.session.user_id
-    }
-  }
+    };
+  };
 
   return res.render('index', templateVars);
 
 });
 
-
-////////////////////////////////////
-
-app.get('/myresources', (req, res)=>{
-  res.render('myresources');
-})
-
 app.get('/addresource', (req, res)=>{
-  res.render('addresource');
-})
+  getCategories().then(data=>{
+    let templateVars = {
+      resources: data,
+    };
 
-// app.post('/addresource', (req, res)=>{
-//   getMaxIDFromResource().then(id=>{
-//     const maxId = id;
+    return res.render('addresource', templateVars);
+  });
 
-
-//   })
-// })
+});
 
 app.get('/userprofile', (req, res)=>{
   res.render('userprofile');
@@ -121,6 +119,10 @@ app.get("/profile", (req,res) => {
   res.render("profile");
 });
 
+app.get("/resource", (req, res)=>{
+  res.render("resource");
+})
+
 app.post("/register", (req,res) => {
   let userId = '';
 
@@ -148,8 +150,8 @@ app.post("/register", (req,res) => {
       username,
       email,
       password: hashedPassword,
-      avatar: '',
-      profile_description: ''
+      avatar: 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png',
+      profile_description: 'say something about you'
     }
 
     addNewUser(user);
@@ -183,6 +185,42 @@ app.post("/login", (req,res) => {
 
 
 });
+
+app.post("/addResource", (req, res)=>{
+  const { title, description, resource_url, photo_url, category_id } = req.body;
+  console.log(`----ADD RESOURCE---${title}--${description}---${resource_url}---${photo_url}---${category_id}----`);
+
+  getMaxIDFromResource().then(id=>{
+
+    let resourceId = 1;
+    if(id){
+      resourceId = id+1;
+    }
+
+    const newResource = {
+      id: resourceId,
+      title,
+      description,
+      resource_url,
+      photo_url,
+      category_id,
+      user_id: req.session.user_id
+    }
+
+    console.log(newResource);
+
+    addResource(newResource).then(result=>{
+        console.log(result);
+
+        return res.redirect('/');
+    }).catch(err=>{
+      console.log(err);
+    })
+
+  })
+
+
+})
 
 app.post("/logout", (req,res) => {
   req.session = null;
