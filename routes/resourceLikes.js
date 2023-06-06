@@ -5,16 +5,17 @@ const likesQueries = require('../db/queries/resourceLikes');
 
 router.post('/', (req, res) => {
   const likes = req.body;
-  console.log("what likes is ????????????????", likes);
   const resourceId = likes['resource-id'];
+  const isLiked = likes['isLiked'];
   const userId = req.session.user_id;
   likesQueries.checkLikes(resourceId,userId)
     .then((selectLikes) => {
       if (!selectLikes) {
-        console.log("???????? selectlikes ?????????", selectLikes);
+        console.log("no likes on this resource by userid");
         return likesQueries.addLikes(resourceId, userId);
       } else {
-        return likesQueries.updateLikes(resourceId, userId);
+        console.log("the resource is liked by user", selectLikes);
+        return likesQueries.updateLikes(isLiked,resourceId, userId);
       }
     })
     .then((likes) => {
