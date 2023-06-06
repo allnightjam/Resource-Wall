@@ -1,41 +1,46 @@
-//Client facing scripts here
-$('.fa-heart').click(function() {
-  //var val = parseInt($(this).text(), 10);
+$(function() {
+  //Client facing scripts here
+  $('.fa-heart').click(function() {
+    //var val = parseInt($(this).text(), 10);
 
-  const $curHeartIcon = $(this);
+    const $curHeartIcon = $(this);
 
-  const $curForm = $curHeartIcon.closest('form');
-  const $curResourceInput = $curForm.find('input');
-  const $heartNum = $curForm.find('span');
+    const $curForm = $curHeartIcon.closest('form');
+    const $curResourceInput = $curForm.find('input');
+    const $heartNum = $curForm.find('span');
 
-  let val = $heartNum.html();
-  let resourceID = $curResourceInput.val();
-  console.log(Number(val));
-  console.log(Number(resourceID));
+    let val = $heartNum.html();
+    let isLiked = false;
+    let resourceID = $curResourceInput.val();
+    console.log(Number(val));
+    console.log(Number(resourceID));
 
 
-  $(this).toggleClass('is-liked');
+    $(this).toggleClass('is-liked');
 
-  if ($(this).hasClass('is-liked')) {
-    $(this).addClass('fa-solid');
-    $(this).removeClass('fa-regular');
-    val++
-    //likesSubmitForm(Number(resourceID));
-  } else {
-    $(this).addClass('fa-regular');
-    $(this).removeClass('fa-solid');
-    val--
-    // User removed his like
-    //unLikesSubmitForm(Number(resourceID));
-  }
+    if ($(this).hasClass('is-liked')) {
+      $(this).addClass('fa-solid');
+      $(this).removeClass('fa-regular');
+      isLiked = true;
+      val++;
+    } else {
+      $(this).addClass('fa-regular');
+      $(this).removeClass('fa-solid');
+      val--;
+      isLiked = false;
+      // User removed his like
+    }
 
-  $($heartNum).text(val);
+    $($heartNum).text(val);
+
+    $.post('/addlikes', { 'resource-id': resourceID, 'isLiked': isLiked })
+      .done(() => {
+        // Handle the success response from the server
+        console.log('add likes success');
+      })
+      .fail(function(error) {
+        console.log('Error:', error);
+      });
+  });
+
 });
-
-// Get the like icon element
-
-const  likesSubmitForm = function(resourceId) {
-  // Submit the form corresponding to the clicked icon
-  document.getElementById('add-likes-form-' + resourceId).submit();
-};
-
