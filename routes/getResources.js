@@ -5,13 +5,14 @@ const resourceQueries = require('../db/queries/resources');
 const commentQueries = require('../db/queries/resourceComments');
 const ratingQueries = require('../db/queries/ratings');
 const categoryQueries = require('../db/queries/category');
+const likesQueries = require('../db/queries/resourceLikes');
 
 // GET route handler for /
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
   const { category_id } = req.query;
-  console.log("let is see what is req.query when select category",req.query);
-  const resourceQuery = category_id ? resourceQueries.getResourceByCategoryId(category_id) : resourceQueries.getAllResource();
+
+  const resourceQuery = category_id ? resourceQueries.getResourceByCategoryId(category_id) : resourceQueries.getAllResource(userId);
   Promise.all([resourceQuery, categoryQueries.getCategories()])
     .then((data) => {
       res.render('index',{resources: data[0], categories: data[1], userId, category_id});
@@ -25,9 +26,12 @@ router.get('/', (req, res) => {
 // GET route handler for /myresources
 router.get('/myresources', (req, res) => {
   const userId = req.session.user_id;
-  resourceQueries.getResourceByUserId(userId)
-    .then((resources) => {
-      res.render('myresources',{resources});
+  Promise.all([
+    resourceQueries.getResourceByUserId(userId),
+    resourceQueries.getResourceUserLiked(userId)
+  ])
+    .then(([resources, resourcesLiked]) => {
+      res.render('myresources',{resources, resourcesLiked});
     })
     .catch((error) => {
       console.error("Error retrieving myresources:", error);
@@ -36,7 +40,7 @@ router.get('/myresources', (req, res) => {
 });
 
 router.get('/resource/:id', (req, res) => {
-
+  const userId = req.session.user_id;
   const id = req.params.id;
   // resourceQueries.getResourceById(id)
   //   .then((resources) => {
@@ -56,15 +60,24 @@ router.get('/resource/:id', (req, res) => {
   //   })
   Promise.all([
     resourceQueries.getResourceById(id),
+    likesQueries.totalLikesByResourceId(id),
+    likesQueries.checkLikes(id,userId),
     commentQueries.getComments(id),
     commentQueries.getTotalComments(id),
     ratingQueries.avgRating(id)
   ])
-    .then(([resources, comments, totalComments, avgRating]) => {
+    .then(([resources, totalLikes, isLiked, comments, totalComments, avgRating]) => {
       if (!avgRating) {
         avgRating = {'resource_id': id, 'avg_rating': '0' };
       }
-      res.render('resource', { resources, comments, totalComments, avgRating });
+      if (!totalLikes) {
+        totalLikes = {'resource_id': id, 't_likes': '0' };
+      }
+      if (!isLiked) {
+        isLiked = {'resource_id': id, 'liked_rs_by': false };
+      }
+
+      res.render('resource', { resources, totalLikes, isLiked, comments, totalComments, avgRating });
     })
     .catch((error) => {
       console.error("Error retrieving resource detail:", error);
