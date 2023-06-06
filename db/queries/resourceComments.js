@@ -6,7 +6,6 @@ const addComments = function(comment,resourceId,userId) {
   
   return db.query(queryString, [comment,resourceId, userId])
     .then(data => {
-      console.log("add comment data into db -----------", data.rows);
       return data.rows;
     })
     .catch(error => {
@@ -24,7 +23,6 @@ const getComments = function(resourceId) {
   
   return db.query(queryString, [resourceId])
     .then(data => {
-      console.log("get comment from db -----------", data.rows);
       return data.rows;
     })
     .catch(error => {
