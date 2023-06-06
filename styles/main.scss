@@ -142,9 +142,11 @@ main{
 
     transition: all 0.2s;
 
-    .fa-heart{
+    .is-liked{
       color: $resource-item-heart;
+    }
 
+    .fa-heart{
       &:hover{
         transform: scale(1.1);
       }
@@ -172,6 +174,11 @@ main{
     font-weight: 700;
     font-size: 30px;
     color: $resource-blue;
+
+    & .category-active{
+      color: $resource-yellow;
+      font-size: 34px;
+    }
 
     span{
       transition: all 0.2s;

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   const resourceQuery = category_id ? resourceQueries.getResourceByCategoryId(category_id) : resourceQueries.getAllResource();
   Promise.all([resourceQuery, categoryQueries.getCategories()])
     .then((data) => {
-      res.render('index',{resources: data[0], categories: data[1], userId});
+      res.render('index',{resources: data[0], categories: data[1], userId, category_id});
     })
     .catch((error) => {
       console.error("Error retrieving resources:", error);
