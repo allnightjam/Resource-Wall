@@ -5,6 +5,7 @@ const addResource = function(resource) {
   const queryString = `INSERT INTO resources(id, title, resource_url, photo_url, description, category_id, user_id) VALUES($1, $2, $3, $4, $5, $6, $7 ) RETURNING *`;
   return db.query(queryString, [`${resource.id}`, `${resource.title}`, `${resource.description}`, `${resource.resource_url}`, `${resource.photo_url}`, `${resource.category_id}`, `${resource.user_id}`])
     .then(data => {
+      console.log(JSON.stringify(data.rows));
       return data.rows;
     })
     .catch(error => {
