@@ -14,11 +14,12 @@ const addResource = function(resource,userId) {
     });
 };
 
-const getAllResource = () => {
+const getAllResource = (userId) => {
   const queryString = `SELECT resources.*, users.username, users.avatar,
                       COALESCE(comments.t_comments, 0) AS t_comments,
                       COALESCE(likes.t_likes, 0) AS t_likes,
-                      COALESCE(avgRating.avg_rating, 0) AS avg_rating
+                      COALESCE(round(avgRating.avg_rating,1), 0) AS avg_rating,
+                      COALESCE(rsUserLiked.liked, false) AS liked_rs_by
                       FROM resources
                       LEFT JOIN users ON resources.user_id = users.id
                       LEFT JOIN (
@@ -30,6 +31,7 @@ const getAllResource = () => {
                       LEFT JOIN (
                         SELECT resource_id, COUNT(*) AS t_likes
                           FROM resource_likes
+                          WHERE liked = true
                           GROUP BY resource_id
                         ) AS likes
                         ON resources.id = likes.resource_id
@@ -38,9 +40,14 @@ const getAllResource = () => {
                           GROUP BY resource_id
                           ) AS avgRating
                       ON resources.id = avgRating.resource_id
+                      LEFT JOIN (
+                        SELECT resource_id as rs_id_user, liked FROM resource_likes
+                        WHERE user_id = $1
+                      ) AS rsUserLiked
+                      ON resources.id = rsUserLiked.rs_id_user
                       ORDER BY resources.created_at DESC`;
   
-  return db.query(queryString)
+  return db.query(queryString, [userId])
     .then(data => {
       return data.rows;
     })
@@ -54,7 +61,8 @@ const getResourceByUserId = function(userId) {
   const queryString = `SELECT resources.*, users.username, users.avatar,
                       COALESCE(comments.t_comments, 0) AS t_comments,
                       COALESCE(likes.t_likes, 0) AS t_likes,
-                      COALESCE(avgRating.avg_rating, 0) AS avg_rating
+                      COALESCE(round(avgRating.avg_rating,1), 0) AS avg_rating,
+                      COALESCE(rsUserLiked.liked, false) AS liked_rs_by
                       FROM resources
                       LEFT JOIN users ON resources.user_id = users.id
                       LEFT JOIN (
@@ -74,6 +82,11 @@ const getResourceByUserId = function(userId) {
                         GROUP BY resource_id
                         ) AS avgRating
                       ON resources.id = avgRating.resource_id
+                      LEFT JOIN (
+                        SELECT resource_id as rs_id_user, liked FROM resource_likes
+                        WHERE user_id = $1
+                      ) AS rsUserLiked
+                      ON resources.id = rsUserLiked.rs_id_user
                       WHERE resources.user_id = $1
                       ORDER BY resources.created_at DESC`;
   return db.query(queryString, [userId])
@@ -98,18 +111,64 @@ const getMaxIDFromResource = () => {
 };
 
 const getResourceById = function(id) {
-  const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes, users.username, users.avatar
-        FROM resources
-        LEFT JOIN users ON resources.user_id = users.id
-        LEFT JOIN resource_likes ON resource_likes.resource_id = resources.id
-        WHERE resources.id = $1
-        GROUP BY resources.id, users.username, users.avatar`;
+  // const queryString = `SELECT resources.*, count(resource_likes.id) as t_likes, users.username, users.avatar
+  //       FROM resources
+  //       LEFT JOIN users ON resources.user_id = users.id
+  //       LEFT JOIN resource_likes ON resource_likes.resource_id = resources.id
+  //       WHERE resources.id = $1
+  //       GROUP BY resources.id, users.username, users.avatar`;
+  const queryString = `SELECT resources.*, users.username, users.avatar
+  FROM resources
+  LEFT JOIN users ON resources.user_id = users.id
+  WHERE resources.id = $1
+  GROUP BY resources.id, users.username, users.avatar`;
   return db.query(queryString, [id])
     .then(data => {
       return data.rows;
     })
     .catch(error => {
       console.error("Error getResourceById in queries:", error);
+      throw error;
+    });
+};
+
+const getResourceUserLiked = function(userId) {
+  const queryString = `SELECT resources.*, users.username, users.avatar,
+                    COALESCE(comments.t_comments, 0) AS t_comments,
+                    COALESCE(likes.t_likes, 0) AS t_likes,
+                    COALESCE(round(avgRating.avg_rating,1), 0) AS avg_rating
+                    FROM resources
+                    LEFT JOIN users ON resources.user_id = users.id
+                    LEFT JOIN (
+                      SELECT resource_id, COUNT(*) AS t_comments
+                      FROM resource_comments
+                      GROUP BY resource_id
+                      ) AS comments
+                    ON resources.id = comments.resource_id
+                    LEFT JOIN (
+                      SELECT resource_id, COUNT(*) AS t_likes
+                      FROM resource_likes
+                      GROUP BY resource_id
+                      ) AS likes
+                    ON resources.id = likes.resource_id
+                    LEFT JOIN (
+                      SELECT resource_id, ROUND(AVG(rating), 2) AS avg_rating FROM resource_ratings
+                      GROUP BY resource_id
+                      ) AS avgRating
+                    ON resources.id = avgRating.resource_id
+                    WHERE resources.id IN (
+                            SELECT resource_id
+                            FROM resource_likes
+                            WHERE user_id = $1 AND liked = true
+                            ) 
+                    AND resources.user_id != $1
+                    ORDER BY resources.created_at DESC;`;
+  return db.query(queryString, [userId])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(error => {
+      console.error("Error getResourceUserLiked in queries:", error);
       throw error;
     });
 };
@@ -135,6 +194,6 @@ const getResourceByCategoryId = function(id) {
 
 
 
-module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource,getResourceById, getResourceByCategoryId};
+module.exports = { addResource, getAllResource, getResourceByUserId, getMaxIDFromResource,getResourceById, getResourceUserLiked, getResourceByCategoryId};
 
 
