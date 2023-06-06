@@ -14,4 +14,33 @@ const addLikes = function(resourceId,userId) {
     });
 };
 
-module.exports = {addLikes};
+const updateLikes = function(liked,resourceId,userId) {
+  const queryString = `UPDATE resource_likes
+                       SET liked = $1 
+                       WHERE resource_id = $2 AND user_id = $3 RETURNING *`;
+  
+  return db.query(queryString, [liked,resourceId, userId])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(error => {
+      console.error("Error update resource_likes in queries:", error);
+      throw error;
+    });
+};
+
+const checkLikes = function(resourceId,userId) {
+  const queryString = `SELECT * FROM resource_likes
+                       WHERE resource_id = $1 AND user_id = $2`;
+  
+  return db.query(queryString, [resourceId, userId])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(error => {
+      console.error("Error checklikes from resource_likes in queries:", error);
+      throw error;
+    });
+};
+
+module.exports = {addLikes,updateLikes, checkLikes};
