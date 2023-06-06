@@ -10,6 +10,7 @@ const categoryQueries = require('../db/queries/category');
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
   const { category_id } = req.query;
+  console.log("let is see what is req.query when select category",req.query);
   const resourceQuery = category_id ? resourceQueries.getResourceByCategoryId(category_id) : resourceQueries.getAllResource();
   Promise.all([resourceQuery, categoryQueries.getCategories()])
     .then((data) => {
@@ -37,21 +38,33 @@ router.get('/myresources', (req, res) => {
 router.get('/resource/:id', (req, res) => {
 
   const id = req.params.id;
-  resourceQueries.getResourceById(id)
-    .then((resources) => {
-      return commentQueries.getComments(id)
-        .then((comments) => {
-          return commentQueries.getTotalComments(id)
-            .then((totalComments) => {
-              return ratingQueries.avgRating(id)
-                .then((avgRating) => {
-                  if (!avgRating) {
-                    avgRating = {'resource_id': id, 'avg_rating': '0' };
-                  }
-                  res.render('resource', { resources, comments, totalComments, avgRating});
-                });
-            });
-        });
+  // resourceQueries.getResourceById(id)
+  //   .then((resources) => {
+  //     return commentQueries.getComments(id)
+  //       .then((comments) => {
+  //         return commentQueries.getTotalComments(id)
+  //           .then((totalComments) => {
+  //             return ratingQueries.avgRating(id)
+  //               .then((avgRating) => {
+  //                 if (!avgRating) {
+  //                   avgRating = {'resource_id': id, 'avg_rating': '0' };
+  //                 }
+  //                 res.render('resource', { resources, comments, totalComments, avgRating});
+  //               });
+  //           });
+  //       });
+  //   })
+  Promise.all([
+    resourceQueries.getResourceById(id),
+    commentQueries.getComments(id),
+    commentQueries.getTotalComments(id),
+    ratingQueries.avgRating(id)
+  ])
+    .then(([resources, comments, totalComments, avgRating]) => {
+      if (!avgRating) {
+        avgRating = {'resource_id': id, 'avg_rating': '0' };
+      }
+      res.render('resource', { resources, comments, totalComments, avgRating });
     })
     .catch((error) => {
       console.error("Error retrieving resource detail:", error);
