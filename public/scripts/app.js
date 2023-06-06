@@ -2,6 +2,7 @@ $(function() {
   //Client facing scripts here
   $('.fa-heart').click(function() {
     //var val = parseInt($(this).text(), 10);
+    console.log("click heart on main page");
 
     const $curHeartIcon = $(this);
 
@@ -37,6 +38,7 @@ $(function() {
 
     $.post('/addlikes', { 'resource-id': resourceID, 'isLiked': isLiked })
       .done(() => {
+        console.log("click heart received!!!");
         // Handle the success response from the server
         console.log('add likes success');
       })
