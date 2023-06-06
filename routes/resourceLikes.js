@@ -4,17 +4,19 @@ const router  = express.Router();
 const likesQueries = require('../db/queries/resourceLikes');
 
 router.post('/', (req, res) => {
+  console.log("got likes in route");
   const likes = req.body;
   const resourceId = likes['resource-id'];
   const isLiked = likes['isLiked'];
   const userId = req.session.user_id;
+  console.log("got likes in route", isLiked);
   likesQueries.checkLikes(resourceId,userId)
     .then((selectLikes) => {
       if (!selectLikes) {
         console.log("no likes on this resource by userid");
         return likesQueries.addLikes(resourceId, userId);
       } else {
-        console.log("the resource is liked by user", selectLikes);
+        console.log("the resource is liked by user before, so update it", selectLikes);
         return likesQueries.updateLikes(isLiked,resourceId, userId);
       }
     })
