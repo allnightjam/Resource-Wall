@@ -35,7 +35,7 @@ const checkLikes = function(resourceId,userId) {
   
   return db.query(queryString, [resourceId, userId])
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     })
     .catch(error => {
       console.error("Error checklikes from resource_likes in queries:", error);
@@ -43,4 +43,20 @@ const checkLikes = function(resourceId,userId) {
     });
 };
 
-module.exports = {addLikes,updateLikes, checkLikes};
+const totalLikesByResourceId = function(resourceId) {
+  const queryString = `SELECT resource_id, count(resource_likes.id) as t_likes 
+                      FROM  resource_likes
+                      WHERE resource_id = $1
+                      GROUP BY resource_id`;
+  
+  return db.query(queryString, [resourceId])
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch(error => {
+      console.error("Error get total likes by r_id from resource_likes in queries:", error);
+      throw error;
+    });
+};
+
+module.exports = {addLikes,updateLikes, checkLikes, totalLikesByResourceId};
