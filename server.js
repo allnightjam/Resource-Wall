@@ -46,6 +46,8 @@ const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
 const categoriesRoutes = require('./routes/categories');
 const resourceRoutes = require('./routes/resource');
+const getResourceRoutes = require('./routes/getResources');
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -55,6 +57,10 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/categories',categoriesRoutes);
 app.use('/addResource',resourceRoutes);
+app.use('/',getResourceRoutes);
+app.use('/myresources', getResourceRoutes);
+app.use('/userprofile', usersRoutes);
+app.use('/updateProfile', usersRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -65,23 +71,16 @@ app.get('/', (req, res) => {
   let templateVars = {
     userId: null
   };
-  if (isLoggedIn(req.session.user_id)){
+  if (isLoggedIn(req.session.user_id)) {
 
     templateVars = {
       userId: req.session.user_id
-    }
-  }
+    };
+  };
 
   return res.render('index', templateVars);
 
 });
-
-
-////////////////////////////////////
-
-app.get('/myresources', (req, res)=>{
-  res.render('myresources');
-})
 
 app.get('/addresource', (req, res)=>{
   getCategories().then(data=>{
@@ -90,13 +89,13 @@ app.get('/addresource', (req, res)=>{
     };
 
     return res.render('addresource', templateVars);
-  })
+  });
 
-})
+});
 
-app.get('/userprofile', (req, res)=>{
-  res.render('userprofile');
-})
+// app.get('/userprofile', (req, res)=>{
+//   res.render('userprofile');
+// })
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

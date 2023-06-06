@@ -41,6 +41,33 @@
   </header>
   <main>
 
+    <div class="resource-container">
+      <% for (let id in resources) { %>
+      <a class="resource-item-link" href="/resource/<%= resources[id].id %>">
+      <div class="resource-item">
+        <img class="resource-item-img" src="<%= resources[id].photo_url%>">
+        <h3 class="resource-title"><%= resources[id].title%></h3>
+        <p class="resource-desc"><%= resources[id].description%></p>
+        <div class="resource-item-footer">
+          <div class="resource-item-user">
+            <div class="resource-item-user-info">
+              <img class="resource-user-avatar" src="<%= resources[id].avatar%>">
+              <span class="resource-user-name"><%= resources[id].username%></span>
+            </div>
+            <div class="resource-created"><%= resources[id].created_at%></div>
+          </div>
+          <div class="resource-item-info">
+            <div class="resource-item-heart"><i class="fa-solid fa-heart"></i><span>2</span></div>
+            <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
+            <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
+          </div>
+        </div>
+      </div>
+      </a>
+      <%}%>
+    </div>
+
+
     </main>
     </body>
     </html>

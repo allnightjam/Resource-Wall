@@ -67,50 +67,30 @@
       </div>
     </section>
     <div class="resource-container">
-      <a class="resource-item-link" href="resource">
-        <div class="resource-item">
-          <img class="resource-item-img" src="https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg?crop=0.668xw:1.00xh;0.119xw,0&resize=1200:*">
-          <h3 class="resource-title">resource title</h3>
-          <p class="resource-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          <div class="resource-item-footer">
-            <div class="resource-item-user">
-              <div class="resource-item-user-info">
-                <img class="resource-user-avatar" src="https://randomuser.me/api/portraits/women/79.jpg">
-                <span class="resource-user-name">Alex</span>
-              </div>
-              <div class="resource-created">1 day ago</div>
+      <% for (let id in resources) { %>
+     <a class="resource-item-link" href="/resource/<%= resources[id].id %>">
+      <div class="resource-item">
+        <img class="resource-item-img" src="<%= resources[id].photo_url%>">
+        <h3 class="resource-title"><%= resources[id].title%></h3>
+        <p class="resource-desc"><%= resources[id].description%></p>
+        <div class="resource-item-footer">
+          <div class="resource-item-user">
+            <div class="resource-item-user-info">
+              <img class="resource-user-avatar" src="
+              <%= resources[id].avatar%>">
+              <span class="resource-user-name"><%= resources[id].username%></span>
             </div>
-            <div class="resource-item-info">
-              <div class="resource-item-heart"><i class="fa-solid fa-heart"></i><span>2</span></div>
-              <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
-              <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
-            </div>
+            <div class="resource-created"><%= resources[id].created_at%></div>
           </div>
-        </div>
-      </a>
-
-      <a class="resource-item-link" href="resource">
-        <div class="resource-item">
-          <img src="https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg?crop=0.668xw:1.00xh;0.119xw,0&resize=1200:*">
-          <h3 class="resource-title">resource title</h3>
-          <p class="resource-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor veritatis impedit, magnam, inventore dignissimos officiis illum tenetur ipsam rem officia praesentium omnis dicta quos distinctio saepe ipsa perspiciatis sed amet.</p>
-          <div class="resource-item-footer">
-            <div class="resource-item-user">
-              <div class="resource-item-user-info">
-                <img class="resource-user-avatar" src="https://randomuser.me/api/portraits/women/79.jpg">
-                <span class="resource-user-name">Alex</span>
-              </div>
-              <div class="resource-created">1 day ago</div>
-            </div>
-            <div class="resource-item-info">
-              <div class="resource-item-heart"><i class="fa-solid fa-heart"></i><span>2</span></div>
-              <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
-              <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
-            </div>
+          <div class="resource-item-info">
+            <div class="resource-item-heart"><i class="fa-solid fa-heart"></i><span>2</span></div>
+            <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
+            <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
           </div>
         </div>
       </div>
     </a>
+      <%}%>
     </div>
   </main>
 </body>
