@@ -1,36 +1,48 @@
 $resource-yellow: #ffd43b;
+$resource-blue: #339af0;
+main {
+  display: flex;
+  justify-content: space-around;
+}
 
 #register-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  box-shadow: 5px 6px #86badf;
+  gap: 10px;
   align-items: center;
   margin-top: 40px;
-
+  background-color: #a5d8fd;
+  width: 40em;
+  padding: 4em;
+  text-align-last: center;
   input{
-      width: 400px;
-
-      padding: 0 12px;
-      height: 45px;
-      position: relative;
-      left: 0;
-      outline: none;
-      border: 1px solid #cdcdcd;
-      border-color: rgba(0, 0, 0, .15);
-      background-color: white;
-      font-size: 16px;
+    width: 400px;
+    padding: 0 12px;
+    height: 45px;
+    position: relative;
+    left: 0;
+    outline: none;
+    border: 2px solid #cdcdcd;
+    background-color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    border-bottom-width: 4px;
+    transition: all .5s ease;
+    font-family: Geologica;
   }
-
-   .regitser-btn{
-      margin-top: 20px;
-      border: none;
-      height: 45px;
-      padding: 12px;
-      color: #fff;
-      font-weight: 800;
-      background-color: $resource-yellow;
-      border-radius: 2px;
-      transition: all 0.2s;
+  input:hover {
+    border-bottom-color: #ffd43b;
+  }
+   .register-btn{
+    margin-top: 20px;
+    border: none;
+    padding: 9px;
+    color: #fff;
+    font-weight: 800;
+    background-color: $resource-yellow;
+    border-radius: 7px;
+    transition: all 0.2s;
 
       &:hover{
         cursor: pointer;
