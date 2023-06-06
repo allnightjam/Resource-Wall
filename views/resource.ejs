@@ -60,9 +60,13 @@
               </div>
               <div class="resource-created"><%= resources[0].created_at%></div>
             </div>
-            <div class="resource-item-heart">
-              <i class="fa-solid fa-heart"></i>
-              <span>2</span>
+            <div class="resource-item-info">
+              <form method="POST" action="/addlikes/<%= resources[0].id%>" id="add-likes-form-<%= resources[0].id %>">
+                <input type="hidden" name="resource-id" value="<%= resources[0].id%>">
+              <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[0].id%>" onclick="likesSubmitForm('<%= resources[0].id%>')"></i><span><%= resources[0].t_likes%></span></div>
+              </form>
+              <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
+              <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
             </div>
             <div class="resource-desc">
               <p><%= resources[0].description%></p>
@@ -110,14 +114,7 @@
         </div>
       </div>
 
-      <div class="resource-item-info">
-        <form method="POST" action="/addlikes/<%= resources[0].id%>" id="add-likes-form-<%= resources[0].id %>">
-          <input type="hidden" name="resource-id" value="<%= resources[0].id%>">
-        <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[0].id%>" onclick="likesSubmitForm('<%= resources[0].id%>')"></i><span><%= resources[0].t_likes%></span></div>
-        </form>
-        <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span>5</span></div>
-        <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span>4.8</span></div>
-      </div>
+
     </main>
     </body>
     </html>
