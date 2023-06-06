@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/profile.css" />
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -26,6 +27,7 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
+  <script defer src="/scripts/profile.js"></script>
 </head>
 
 <body>
@@ -40,7 +42,32 @@
     </nav>
   </header>
   <main>
+    <!-- <form method="POST" action="/updateProfile" id="update-profile-form">
+      <div class = "user-profile">
+        <img class="user-avatar" src="<%= users[0].avatar%>">
+        <h3 class="user-name"><%= users[0].username%> </h3>
+        <p class="user-email">Email: <%= users[0].email%></p>
+        <p class="profile-description"> Profie:
+        <textarea name="description" rows="4"><%= users[0].profile_description%> </textarea></p>
+        <p>Update avatar link: <input type="avatar-url" name="avatar_url"/></p>
+        <button class="profile-update-btn" type="submit">UPDATE PROFILE</button>
+      </div>
+    </form> -->
 
+      <div class="profile-container">
+          <img class="profile-avatar" src="<%= users[0].avatar%>" />
+          <div class="profile-user-info">
+            <span class="profile-username"><%= users[0].username%></span>
+            <span class="profile-email"><%= users[0].email%></span>
+          </div>
+
+
+          <form method="POST" action="/profile" id="profile-form">
+            <input class="profile-avatar-change" type="text" name="avatar_url" placeholder="AVATAR LINK" />
+            <textarea class="profile-desc" rows="8" name="description" placeholder="SAY SOMETHING ABOUT YOU"><%= users[0].profile_description%></textarea>
+            <button type="submit" class="profile-btn">SAVE</button>
+          </form>
+      </div>
     </main>
     </body>
     </html>

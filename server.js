@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 const { getMaxIDFromResource, addResource } = require('./db/queries/resources');
-const { getMaxIDFromUsers, addNewUser } = require('./db/queries/users');
+const { getMaxIDFromUsers, addNewUser, updateProfile } = require('./db/queries/users');
 const { getUserByEmail, authenticateUser, isLoggedIn } = require('./help');
 const { getCategories } = require('./db/queries/category');
 
@@ -59,6 +59,8 @@ app.use('/categories',categoriesRoutes);
 app.use('/addResource',resourceRoutes);
 app.use('/',getResourceRoutes);
 app.use('/myresources', getResourceRoutes);
+app.use('/userprofile', usersRoutes);
+app.use('/updateProfile', usersRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -91,9 +93,9 @@ app.get('/addresource', (req, res)=>{
 
 });
 
-app.get('/userprofile', (req, res)=>{
-  res.render('userprofile');
-})
+// app.get('/userprofile', (req, res)=>{
+//   res.render('userprofile');
+// })
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
@@ -118,6 +120,16 @@ app.post("/search", (req, res)=>{
 app.get("/profile", (req,res) => {
   res.render("profile");
 });
+
+app.post("/profile", (req, res)=>{
+  const { avatar_url, description } = req.body;
+  console.log(`-------------avatar------------${avatar_url}`);
+  updateProfile({ avatar_url, description }, req.session.user_id).then(result=>{
+    console.log(result);
+
+    res.redirect('/');
+  })
+})
 
 app.get("/resource", (req, res)=>{
   res.render("resource");
@@ -150,8 +162,8 @@ app.post("/register", (req,res) => {
       username,
       email,
       password: hashedPassword,
-      avatar: 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png',
-      profile_description: 'say something about you'
+      avatar: 'https://d2w9rnfcy7mm78.cloudfront.net/8040974/original_ff4f1f43d7b72cc31d2eb5b0827ff1ac.png?1595022778?bc=0',
+      profile_description: ''
     }
 
     addNewUser(user);
