@@ -37,7 +37,7 @@ const getTotalComments = function(resourceId) {
   
   return db.query(queryString, [resourceId])
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     })
     .catch(error => {
       console.error("Error get total comment from resource_comments in queries:", error);
