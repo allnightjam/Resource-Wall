@@ -40,7 +40,7 @@
     </nav>
   </header>
   <main>
-
+    
     <div class="resource-container">
       <% for (let id in resources) { %>
       
@@ -61,6 +61,7 @@
           <div class="resource-item-info">
             <form method="POST" action="/addlikesOnMyresource" id="add-likes-form-<%= resources[id].id %>">
               <input type="hidden" name="resource-id" value="<%= resources[id].id%>">
+              <input type="hidden" id="resource-liked-<%= resources[id].id%>" value="<%= resources[id].liked_rs_by%>" />
             <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resources[id].id%>" onclick="likesSubmitForm('<%= resources[id].id%>')"></i><span><%= resources[id].t_likes%></span></div>
             </form>
             <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%= resources[id].t_comments%></span></div>
@@ -69,6 +70,35 @@
         </div>
       </div>
       <%}%>
+
+      <% for (let id in resourcesLiked) { %>
+      
+        <div class="resource-item">
+          <a class="resource-item-link" href="/resource/<%= resourcesLiked[id].id %>">
+          <img class="resource-item-img" src="<%= resourcesLiked[id].photo_url%>">
+          <h3 class="resource-title"><%= resourcesLiked[id].title%></h3>
+          <p class="resource-desc"><%= resourcesLiked[id].description%></p>
+        </a>
+          <div class="resource-item-footer">
+            <div class="resource-item-user">
+              <div class="resource-item-user-info">
+                <img class="resource-user-avatar" src="<%= resourcesLiked[id].avatar%>">
+                <span class="resource-user-name"><%= resourcesLiked[id].username%></span>
+              </div>
+              <div class="resource-created"><%= resourcesLiked[id].created_at.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></div>
+            </div>
+            <div class="resource-item-info">
+              <form method="POST" action="/addlikesOnMyresource" id="add-likes-form-<%= resourcesLiked[id].id %>">
+                <input type="hidden" name="resource-id" value="<%= resourcesLiked[id].id%>">
+                <input type="hidden" id="resource-liked-<%= resourcesLiked[id].id%>" value="<%= resourcesLiked[id].liked_rs_by%>" />
+              <div class="resource-item-heart"><i class="fa-solid fa-heart" id="like-icon-<%= resourcesLiked[id].id%>" onclick="likesSubmitForm('<%= resourcesLiked[id].id%>')"></i><span><%= resourcesLiked[id].t_likes%></span></div>
+              </form>
+              <div class="resource-item-comment"><i class="fa-regular fa-comment"></i><span><%= resourcesLiked[id].t_comments%></span></div>
+              <div class="resource-item-rating"><i class="fa-solid fa-star"></i><span><%= resourcesLiked[id].avg_rating%></span></div>
+            </div>
+          </div>
+        </div>
+        <%}%>
     </div>
 
 
