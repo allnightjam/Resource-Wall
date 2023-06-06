@@ -76,7 +76,9 @@ router.get('/resource/:id', (req, res) => {
       if (!isLiked) {
         isLiked = {'resource_id': id, 'liked_rs_by': false };
       }
-
+      if (!totalComments.total_comments) {
+        totalComments = {'resource_id': id, 'total_comments': '0' };
+      }
       res.render('resource', { resources, totalLikes, isLiked, comments, totalComments, avgRating });
     })
     .catch((error) => {
