@@ -223,3 +223,12 @@ main{
 .hidden {
   display:none;
 }
+
+a {
+  text-decoration: none;
+  color: #339af0;
+}
+
+.resource-main-title {
+  color: $resource-yellow;
+}
