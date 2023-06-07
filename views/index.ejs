@@ -58,7 +58,7 @@
       <div class="category-part">
         <% categories.forEach(function(category) { %>
           <a class="category-link" href="/?category_id=<%= category.id %>">
-            <span class="category-title"> <%= category.name %> </span>
+            <span class="category-title <%= category_id == category.id ? 'category-active': '' %> "> <%= category.name %> </span>
           </a>
         <% }) %>
       </div>

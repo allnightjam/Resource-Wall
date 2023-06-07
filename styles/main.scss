@@ -173,6 +173,11 @@ main{
     font-size: 30px;
     color: $resource-blue;
 
+    & .category-active{
+      color: $resource-yellow;
+      font-size: 34px;
+    }
+
     span{
       transition: all 0.2s;
     }
