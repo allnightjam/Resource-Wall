@@ -31,4 +31,16 @@ router.get('/', (req, res)=>{
   });
 
 });
+
+// router.get('/:category_id', (req, res)=>{
+//   const { category_id } = req.params;
+//   resourceQueries.getResourceByCategoryId(category_id)
+//   .then(resources => {
+//     let templateVars = {
+//       resources,
+//     };
+//     res.render('index', templateVars);
+//   });
+// });
+
 module.exports = router;
