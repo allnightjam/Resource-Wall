@@ -21,6 +21,22 @@ $(() => {
 });
 
 
+// const categoryButtons = document.querySelectorAll(".category-title")
+
+// categoryButtons.forEach((button) => {
+//   button.addEventListener('click', (event) => {
+//     const selectedCategory = event.target.dataset.category;
+
+//     getCategory(selectedCategory)
+//       .then((results) => {
+//         console.log(results);
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   });
+// });
+
 /////////////
 // window.addEventListener('DOMContentLoaded', (event) => {
 //   const categoryList = document.getElementById("category-list");
