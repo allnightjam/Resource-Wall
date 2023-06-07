@@ -25,14 +25,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Caveat:wght@700&family=Courgette&family=Finger+Paint&family=Geologica:wght@300;400;600&family=Secular+One&family=Varela+Round&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Caveat:wght@700&family=Courgette&family=Finger+Paint&family=Geologica:wght@300;400;600&family=Secular+One&family=Varela+Round&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" type="text/css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
+  <script defer src="/scripts/resource.js"></script>
 </head>
 
 <body>
@@ -71,6 +72,21 @@
             <div class="resource-desc">
               <p><%= resources[0].description%></p>
             </div>
+
+          </div>
+          <div class="star-rating">
+            <!-- <form action="/rating" method="POST"> -->
+              <input type="radio" id="5-stars" name="rating" value="5" class="start-radio" />
+              <label for="5-stars" class="star">&#9733;</label>
+              <input type="radio" id="4-stars" name="rating" value="4" class="start-radio"/>
+              <label for="4-stars" class="star">&#9733;</label>
+              <input type="radio" id="3-stars" name="rating" value="3" class="start-radio"/>
+              <label for="3-stars" class="star">&#9733;</label>
+              <input type="radio" id="2-stars" name="rating" value="2" class="start-radio"/>
+              <label for="2-stars" class="star">&#9733;</label>
+              <input type="radio" id="1-star" name="rating" value="1" class="start-radio"/>
+              <label for="1-star" class="star">&#9733;</label>
+            <!-- </form> -->
 
           </div>
           <div class="resource-comments">
