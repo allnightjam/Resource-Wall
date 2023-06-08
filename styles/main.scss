@@ -10,7 +10,7 @@ body {
    padding-top: 120px;
 }
 
-header{
+header {
   overflow: hidden;;
   position: fixed;
   top: 0;
@@ -36,7 +36,6 @@ header{
     display: flex;
     gap: 50px;
     padding: 0 40px;
-
     font-family: Geologica;
     font-weight: 600;
     font-size: 28px;
@@ -168,9 +167,9 @@ main{
   & .category-part{
     display: flex;
     gap: 40px;
-    font-family: Caveat;
-    font-weight: 700;
-    font-size: 30px;
+    font-family: cursive;
+    font-weight: 600;
+    font-size: 22px;
     color: $resource-blue;
 
     span{
@@ -190,9 +189,9 @@ main{
     gap: 20px;
 
     & .search-btn{
-      font-family: Geologica;
-      font-weight: 600;
-      font-size: 24px;
+      font-family: cursive;
+      font-weight: 700;
+      font-size: 20px;
       background-color: transparent;
       border: none;
       color: $resource-blue;
@@ -214,10 +213,10 @@ main{
       border-color: rgba(0, 0, 0, .15);
       background-color: white;
       font-size: 16px;
+      font-family: Geologica;
       border-radius: 20px;
     }
   }
-
 }
 
 .hidden {
@@ -232,3 +231,4 @@ a {
 .resource-main-title {
   color: $resource-yellow;
 }
+

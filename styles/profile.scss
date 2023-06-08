@@ -1,22 +1,37 @@
 $resource-yellow: #ffd43b;
+$resource-dark-blue: #306b9c;
+
 .profile-container{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  font-family: Courgette;
-
+  font-family: Geologica;
+  font-weight: 600;
+  box-shadow: 5px 6px #86badf;
+  background-color: #a5d8fd;
+  height: fit-content;
+  text-align-last: center;
   & .profile-user-info{
     display: flex;
     flex-direction: column;
     align-items: center;
-
     & .profile-username{
-      font-size: 22px;
+      font-size: 35px;
+      color: $resource-dark-blue;
+      transition: all .5s ease;
     }
     & .profile-email{
       font-size: 22px;
+      margin-top: 10px;
+      opacity: .6;
+      color: $resource-dark-blue;
+      transition: all .3s ease;
+    }
+    & .profile-username:hover, .profile-email:hover{
+      color: $resource-yellow;
+      opacity: 1;
     }
   }
 
@@ -26,8 +41,12 @@ $resource-yellow: #ffd43b;
     margin: 30px auto 0 auto;
     border-radius: 50%;
     box-shadow: 1px 1px 15px -5px black;
+    transition: all .3s ease;
   }
-
+  & .profile-avatar:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+  }
 
 
   & #update-profile-form{
@@ -37,7 +56,6 @@ $resource-yellow: #ffd43b;
     font-family: Geologica;
     gap: 15px;
 
-
     & .profile-desc,
       .profile-avatar-change{
 
@@ -46,15 +64,22 @@ $resource-yellow: #ffd43b;
       position: relative;
       left: 0;
       outline: none;
-      border: 1px solid #cdcdcd;
-      border-color: rgba(0, 0, 0, .15);
+      border: 2px solid #cdcdcd;
+      border-bottom-width: 5px;
+      transition: all .5s ease;
       background-color: white;
       font-size: 16px;
       padding: 8px;
+      border-radius: 8px;
+    }
+
+    & .profile-desc:hover, .profile-avatar-change:hover {
+      border-bottom-color: #ffd43b;
     }
 
     & .profile-btn{
       margin-top: 20px;
+      margin-bottom: 20px;
       border: none;
       height: 45px;
       padding: 12px;
@@ -70,8 +95,4 @@ $resource-yellow: #ffd43b;
       }
     }
   }
-
-
 }
-
-
