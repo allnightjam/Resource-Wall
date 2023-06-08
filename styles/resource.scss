@@ -1,12 +1,12 @@
 $resource-item-heart: #f03e3e;
 $resource-yellow: #ffd43b;
 $resource-blue: #339af0;
+$resource-background-color: #d0ebff;
 
 main {
-  padding-top: 0;
-  border-left: 100px #339af0;
-  border-right: 100px #339af0;
+  padding: 0;
 }
+
 .resource-nav h1 {
   font-family: Finger Paint;
   font-weight: 600;
@@ -44,7 +44,7 @@ main {
 
   & .resource-info{
     width: 900px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     h1 {
       font-family: Secular One;
     }
@@ -81,6 +81,7 @@ main {
       gap: 10px;
       width: 100%;
       font-family: Geologica;
+      padding-top: 10px;
 
       & .resource-user-info-left{
         display: flex;
@@ -93,6 +94,10 @@ main {
         width: 38px;
         height: 38px;
         border-radius: 50%;
+      }
+
+      & .resource-user-name {
+        font-size: 30px;
       }
     }
 
@@ -140,9 +145,13 @@ main {
 
   & .resource-comments{
 
-    article{
+    article {
       margin-bottom: 40px;
+      padding: 20px;
+      background-color: $resource-background-color;
+      border-radius: 20px;
       width: 900px;
+      transition: all .5 ease;
       & > * {
         margin-bottom: 15px;
       }
@@ -152,6 +161,11 @@ main {
       }
     }
 
+    & article:hover{
+      cursor: pointer;
+      transform: scale(1.05);
+      box-shadow: 2px 2px $resource-yellow;
+    }
 
     & .resource-comments-user-info{
       display: flex;
@@ -202,11 +216,12 @@ main {
         border-radius: 8px;
         transition: all .5s ease;
       }
+
       & .resource-comments:hover {
         border-bottom-color: #ffd43b;
       }
       & .add-btn{
-        margin-top: 20px;
+        margin-top: 10px;
         border: none;
         height: 45px;
         padding: 12px;
