@@ -68,6 +68,10 @@ $resource-yellow: #ffd43b;
           display: flex;
           align-items: center;
         }
+
+       & .is-liked{
+          color: $resource-item-heart;
+        }
     }
   }
 
