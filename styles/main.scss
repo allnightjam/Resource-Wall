@@ -129,6 +129,8 @@ main{
     display:flex;
     color: $created-time-color;
     text-align: right;
+    width: 60%;
+    font-size: smaller;
   }
 }
 
