@@ -80,6 +80,7 @@ main{
 }
 
 .resource-item{
+  align-self: flex-start;
   padding: 30px;
   background-color: #fbfafa;
   border-radius: 6px;
@@ -243,4 +244,5 @@ a {
 .resource-main-title {
   color: $resource-yellow;
 }
+
 
