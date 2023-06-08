@@ -6,7 +6,8 @@ $(function() {
     const $curHeartIcon = $(this);
 
     const $curForm = $curHeartIcon.closest('form');
-    const $curResourceInput = $curForm.find('input');
+    const $curResourceInput = $curForm.find('#hidden-resource-id');
+    const $curResourceLikedInput = $curForm.find('#hidden-resource-liked');
     const $heartNum = $curForm.find('span');
 
     let val = $heartNum.html();
@@ -14,6 +15,7 @@ $(function() {
     let resourceID = $curResourceInput.val();
     console.log(Number(val));
     console.log(Number(resourceID));
+    console.log($curResourceLikedInput.val());
 
 
     $(this).toggleClass('is-liked');
