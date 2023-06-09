@@ -34,16 +34,17 @@
       <div class="nav-left">
         <h1>MY RESOURCES</h1>
       </div>
+      <div class="filler"></div>
       <div class="nav-right">
         <a class="user-back" onclick="window.location.href='/'">BACK</a>
       </div>
     </nav>
   </header>
   <main>
-    
+
     <div class="resource-container">
       <% for (let id in resources) { %>
-      
+
       <div class="resource-item">
         <a class="resource-item-link" href="/resource/<%= resources[id].id %>">
         <img class="resource-item-img" src="<%= resources[id].photo_url%>">
@@ -78,7 +79,7 @@
       <%}%>
 
       <% for (let id in resourcesLiked) { %>
-      
+
         <div class="resource-item">
           <a class="resource-item-link" href="/resource/<%= resourcesLiked[id].id %>">
           <img class="resource-item-img" src="<%= resourcesLiked[id].photo_url%>">

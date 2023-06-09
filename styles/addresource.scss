@@ -66,3 +66,14 @@ $resource-yellow: #ffd43b;
     }
   }
 }
+
+@media only screen and (max-width: 800px){
+  #add-resource-form{
+    input,
+    textarea,
+    .resource-category{
+
+      width: 400px;
+    }
+  }
+}
