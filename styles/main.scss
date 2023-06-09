@@ -203,9 +203,16 @@ main{
     word-spacing: 2px;
   }
 
-  .resource-desc{
+  p.resource-desc{
+    max-height: 60px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     font-family: Geologica;
     font-weight: 300;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre-wrap;
   }
 
   img{
