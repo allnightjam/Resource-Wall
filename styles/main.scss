@@ -24,6 +24,7 @@ header {
   justify-content: space-between;
   background-color: $resource-blue;
   align-items: center;
+  height: 120px;
 
   h1{
     margin: 20px 40px;
@@ -32,15 +33,11 @@ header {
     font-size: 48px;
   }
 
-  .nav-right{
-    display: flex;
-    gap: 50px;
-    padding: 0 40px;
-    font-family: Geologica;
-    font-weight: 600;
-    font-size: 28px;
-    font-family: Finger Paint;
+  .filler {
+    flex-grow: 1;
+  }
 
+  .nav-right{
     a{
       transition: all 0.3s;
       color: #fff;
@@ -67,17 +64,132 @@ main{
   padding: 20px 40px;
 }
 
-.resource-container{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 40px;
-  row-gap: 40px;
+@media only screen and (min-width: 800px){
+  .resource-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    row-gap: 40px;
+  }
 
+  .resource-nav h1{
+    display: none;
+  }
+
+  .nav-right{
+    display: flex;
+    gap: 20px;
+    padding: 0 40px;
+    font-weight: 400;
+    font-size: 28px;
+    font-family: Finger Paint;
+    justify-content: start;
+  }
+
+  .category-search-section{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+
+    & .category-part{
+      display: flex;
+      gap: 40px;
+      font-size: 18px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px){
+  .resource-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 40px;
+    row-gap: 40px;
+  }
+
+  .resource-nav h1{
+    display: inline-block;
+  }
+
+  .resource-nav {
+    justify-content: flex-start;
+  }
+
+  .nav-right{
+    display: flex;
+    gap: 50px;
+    padding: 0 40px;
+    font-family: Geologica;
+    font-weight: 600;
+    font-size: 28px;
+    font-family: Finger Paint;
+  }
+
+  .category-search-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & .category-part{
+      display: flex;
+      gap: 40px;
+      font-size: 22px;
+    }
+  }
+}
+
+@media only screen and (max-width: 800px){
+  .resource-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 40px;
+    row-gap: 40px;
+  }
+
+  .resource-nav h1{
+    display: inline-block;
+    font-size: 20px;
+  }
+
+  .resource-nav {
+    justify-content: flex-start;
+  }
+
+  .nav-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1px;
+    padding: 0 40px;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: Finger Paint;
+  }
+
+  .category-search-section{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+
+    & .category-part{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 18px;
+    }
+  }
+}
+
+.resource-container{
   & .resource-item-link{
     text-decoration: none;
     color: black;
   }
 }
+
+
 
 .resource-item{
   align-self: flex-start;
@@ -169,13 +281,11 @@ main{
 }
 
 .category-search-section{
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 40px;
 
   & .category-part{
-    display: flex;
-    gap: 40px;
+    // display: flex;
+    // gap: 40px;
     font-family: cursive;
     font-weight: 600;
     font-size: 22px;
