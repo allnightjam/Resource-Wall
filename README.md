@@ -1,10 +1,10 @@
 Resource Wall
 =========
-!["Video of the main page"](https://github.com/nifen44/lhl-midterm/assets/116188111/a5a2329d-ab4f-405e-9a85-d2a91e3f1c64)
+https://github.com/nifen44/lhl-midterm/assets/116188111/a5a2329d-ab4f-405e-9a85-d2a91e3f1c64
 
-!["Video of the resource page"](https://github.com/nifen44/lhl-midterm/assets/116188111/41bf5f5a-66b2-433b-8ffd-83769ff1a532)
+https://github.com/nifen44/lhl-midterm/assets/116188111/41bf5f5a-66b2-433b-8ffd-83769ff1a532
 
-!["Video of adding a resource"](https://github.com/nifen44/lhl-midterm/assets/116188111/ff4e7893-12a6-46ab-b50e-98f9542877ad)
+https://github.com/nifen44/lhl-midterm/assets/116188111/ff4e7893-12a6-46ab-b50e-98f9542877ad
 
 ## Description
 
